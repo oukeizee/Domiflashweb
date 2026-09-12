@@ -9,24 +9,17 @@
   <title>Domiflash | Tu pedido, más rápido</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .help-modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-    .help-modal.is-open{display:flex}
-    .help-modal-dialog{position:relative;width:min(100%,520px);max-height:min(90vh,760px);overflow:auto;padding:28px;border:1px solid rgba(255,255,255,.12);border-radius:20px;background:#0b0b0b;box-shadow:0 24px 80px rgba(0,0,0,.55)}
-    .help-modal-dialog h2{margin:0 38px 8px 0;font-size:1.55rem}
-    .help-modal-dialog>p{margin:0 0 18px;color:#9a9a9a;line-height:1.5}
-    .help-modal-close{position:absolute;top:14px;right:14px;width:40px;height:40px;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:#151515;color:#fff;font-size:24px;line-height:1;cursor:pointer}
-    .help-modal-close:hover{border-color:var(--yellow);color:var(--yellow)}
-    .help-form{display:grid;gap:11px}
-    .help-form label{font-size:.8rem;color:#aaa;margin:2px 0 -5px}
-    .help-form input,.help-form textarea{width:100%;border:1px solid rgba(255,255,255,.12);border-radius:11px;background:#111;color:#fff;padding:12px 13px;font:500 16px Inter,Arial,sans-serif;outline:none}
+    .help-form-card{padding:24px;}
+    .help-form-card h3{margin:0 0 8px;font-size:1.2rem}
+    .help-form-card>p{min-height:auto!important;margin:0 0 16px}
+    .help-form{display:grid;gap:10px;margin-top:12px}
+    .help-form input,.help-form textarea{width:100%;border:1px solid rgba(255,255,255,.12);border-radius:11px;background:rgba(0,0,0,.28);color:#fff;padding:12px 13px;font:500 16px Inter,Arial,sans-serif;outline:none}
     .help-form input:focus,.help-form textarea:focus{border-color:var(--yellow);box-shadow:0 0 0 3px rgba(255,179,0,.08)}
-    .help-form textarea{min-height:105px;resize:vertical}
+    .help-form textarea{min-height:86px;resize:vertical}
     .help-form input::placeholder,.help-form textarea::placeholder{color:#777}
-    .help-form button{width:100%;margin-top:4px}
-    .help-form-note{font-size:.72rem!important;color:#777!important;line-height:1.45!important;margin:0!important}
-    body.modal-open{overflow:hidden}
-    .help-open{border:0;cursor:pointer;font:inherit;background:transparent;color:inherit;padding:0}
-    @media (max-width:600px){.help-modal{padding:12px}.help-modal-dialog{padding:23px 18px;border-radius:17px;max-height:94vh}}
+    .help-form button{width:100%;margin-top:2px}
+    .help-form-note{font-size:.7rem!important;color:#777!important;line-height:1.45!important;min-height:auto!important;margin:0!important}
+    @media (max-width:900px){.help-form-card{width:100%}}
   </style>
 </head>
 <body>
@@ -42,7 +35,7 @@
       <a href="restaurantes.html">Restaurantes</a>
       <a href="#como-funciona">Cómo pedir</a>
     </nav>
-    <a class="header-order icon-button" href="https://wa.me/573184947037?text=Hola%20Domiflash%2C%20quiero%20hacer%20un%20pedido." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.8 7.4L3 20.5l1.5-4.5A8.5 8.5 0 1 1 20.5 11.7Z"/><path d="M8.4 7.6c.3-.3.7-.3 1-.1l1.3 1c.3.2.4.6.2.9l-.6.9c.8 1.4 1.8 2.3 3.3 3l.8-.7c.3-.2.7-.2.9 0l1.2 1c.3.2.3.7.1 1-.5.8-1.4 1.3-2.3 1.2-3.2-.3-6.7-3.8-7-7-.1-.9.3-1.8 1.1-2.2Z"/></svg><span>Pedir ahora</span></a>
+    <a class="header-order icon-button" href="https://wa.me/573184947037?text=Hola%20Domiflash%2C%20quiero%20hacer%20un%20pedido." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.8 7.4L3 20.5l1.5-4.5A8.5 8.5 0 1 1 20.5 11.7Z"/><path d="M8.4 7.6c.3-.3.7-.3 1-.1l1.3 1c.3.2.4.6.2.9l-.6.9c.8 1.4 1.8 2.3 3.3 3l.8-.7c.3-.2.7-.2.9 0l1.2 1c.3.2.3.7.1 1-.5.8-1.4 1.3-2.3 1.2-3.2-.3-.3-6.7-3.8-7-7-.1-.9.3-1.8 1.1-2.2Z"/></svg><span>Pedir ahora</span></a>
   </header>
 
   <main>
@@ -80,11 +73,19 @@
           <p>Elige productos de varios restaurantes y agrega también cualquier otra cosa que necesites.</p>
           <a class="action-link" href="pedido.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2 11h10l3-8H6"/><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg><span>Comenzar</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
         </article>
-        <article class="service-card reveal delay-2 service-card-link">
-          <div class="service-icon">📲</div>
-          <h3>Envía por WhatsApp</h3>
+
+        <article class="service-card help-form-card reveal delay-2">
+          <div class="service-icon">🤝</div>
+          <h3>¿Necesitas ayuda?</h3>
           <p>Cuéntanos qué necesitas comprar y te ayudamos a gestionarlo.</p>
-          <button class="action-link help-open" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.8 7.4L3 20.5l1.5-4.5A8.5 8.5 0 1 1 20.5 11.7Z"/><path d="M8.4 7.6c.3-.3.7-.3 1-.1l1.3 1c.3.2.4.6.2.9l-.6.9c.8 1.4 1.8 2.3 3.3 3l.8-.7c.3-.2.7-.2.9 0l1.2 1c.3.2.3.7.1 1-.5.8-1.4 1.3-2.3 1.2-3.2-.3-6.7-3.8-7-7-.1-.9.3-1.8 1.1-2.2Z"/></svg><span>Enviar por WhatsApp</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+          <form id="purchaseHelpForm" class="help-form">
+            <input id="helpName" name="name" type="text" autocomplete="name" placeholder="Nombre" required>
+            <input id="helpAddress" name="address" type="text" autocomplete="street-address" placeholder="Dirección" required>
+            <input id="helpPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="Número de contacto" required>
+            <textarea id="helpRequest" name="request" placeholder="¿Qué deseas que te ayudemos a comprar?" required></textarea>
+            <button class="btn btn-primary icon-button" type="submit"><span>Solicitar ayuda</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+            <p class="help-form-note">Al enviar, se abrirá WhatsApp con tus datos para que Domiflash pueda confirmar tu solicitud.</p>
+          </form>
         </article>
       </div>
     </section>
@@ -111,26 +112,6 @@
     </section>
   </main>
 
-  <div id="helpModal" class="help-modal" aria-hidden="true">
-    <div class="help-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="helpModalTitle">
-      <button id="helpModalClose" class="help-modal-close" type="button" aria-label="Cerrar formulario">×</button>
-      <h2 id="helpModalTitle">¿Necesitas ayuda con una compra?</h2>
-      <p>Déjanos tus datos y cuéntanos qué necesitas. Al enviar, se abrirá WhatsApp con la solicitud lista para Domiflash.</p>
-      <form id="purchaseHelpForm" class="help-form">
-        <label for="helpName">Nombre</label>
-        <input id="helpName" name="name" type="text" autocomplete="name" placeholder="Tu nombre" required>
-        <label for="helpAddress">Dirección</label>
-        <input id="helpAddress" name="address" type="text" autocomplete="street-address" placeholder="Dirección de entrega" required>
-        <label for="helpPhone">Número de contacto</label>
-        <input id="helpPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="Ej. 318 494 7037" required>
-        <label for="helpRequest">¿Qué deseas que te ayudemos a comprar?</label>
-        <textarea id="helpRequest" name="request" placeholder="Escribe aquí lo que necesitas..." required></textarea>
-        <button class="btn btn-primary icon-button" type="submit"><span>Enviar solicitud por WhatsApp</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
-        <p class="help-form-note">Tus datos se enviarán únicamente a Domiflash mediante WhatsApp para gestionar tu solicitud.</p>
-      </form>
-    </div>
-  </div>
-
   <aside class="social-stack" aria-label="Redes sociales">
     <a class="social facebook" href="https://www.facebook.com/domiflash.girardot" target="_blank" rel="noopener" aria-label="Facebook"><svg class="social-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.5 8H17V4.2c-.4-.1-1.5-.2-2.8-.2-2.8 0-4.7 1.7-4.7 4.9V11H6.5v4.1h3v8.2h4.1v-8.2h3.4l.5-4.1h-3.9V9.3c0-1.2.3-1.3.9-1.3Z"/></svg></a>
     <a class="social instagram" href="https://www.instagram.com/domiflash.girardot/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="social-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.7" r="1.2" fill="currentColor"/></svg></a>
@@ -139,96 +120,43 @@
 
   <a class="whatsapp-float" href="https://wa.me/573184947037?text=Hola%20Domiflash%2C%20quiero%20hacer%20un%20pedido." target="_blank" rel="noopener" aria-label="Haz tu pedido por WhatsApp">
     <span class="whatsapp-label">Haz tu pedido aquí</span>
-    <span class="wa-icon"><svg class="whatsapp-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="#FFFFFF" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.198-.497.099-.198-.05-.371-.025-.52-.075-.149-.669-1.611-.916-2.206-.242-.579-.487-.5-.67-.51l-.57-.01c-.198 0-.52.075-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982 1-3.648-.235-.374a9.86 9.86 0 1 1 8.372 4.632m8.389-18.41A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.89c0 2.096.547 4.142 1.588 5.946L.057 24l6.304-1.654a11.876 11.876 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.89a11.82 11.82 0 0 0-3.502-8.529"/></svg></span>
+    <span class="wa-icon"><svg class="whatsapp-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="#FFFFFF" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.248-.497.099-.198-.05-.371-.025-.52-.075-.149-.669-1.611-.916-2.206-.242-.579-.487-.5-.67-.51l-.57-.01c-.198 0-.52.075-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982 1-3.648-.235-.374a9.86 9.86 0 1 1 8.372 4.632m8.389-18.41A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.89c0 2.096.547 4.142 1.588 5.946L.057 24l6.304-1.654a11.876 11.876 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.89a11.82 11.82 0 0 0-3.502-8.529"/></svg></span>
   </a>
 
   <footer class="site-footer">
-  <div class="footer-main">
-    <div class="footer-brand">
-      <a href="index.html" aria-label="Domiflash inicio"><img src="assets/images/domiflash-logo.jpeg" alt="Domiflash"></a>
-      <p>Tu pedido, más rápido.</p>
-      <span>Servicio de domicilios en Girardot.</span>
+    <div>
+      <strong>DOMIFLASH</strong>
+      <span>Tu pedido, más rápido.</span>
     </div>
-
-    <div class="footer-column">
-      <h3>Navegación</h3>
-      <a href="index.html">Inicio</a>
+    <div class="footer-links">
       <a href="restaurantes.html">Restaurantes</a>
-      <a href="pedido.html">Arma tu pedido</a>
-      <a href="comercios.html">Comercios</a>
-    </div>
-
-    <div class="footer-column">
-      <h3>Ayuda</h3>
-      <a href="index.html#como-funciona">Cómo pedir</a>
-      <a href="https://wa.me/573184947037?text=Hola%20Domiflash%2C%20necesito%20ayuda." target="_blank" rel="noopener">Contáctanos</a>
-      <span>Atención por WhatsApp</span>
-    </div>
-
-    <div class="footer-column">
-      <h3>Síguenos</h3>
       <a href="https://www.instagram.com/domiflash.girardot/" target="_blank" rel="noopener">Instagram</a>
       <a href="https://www.facebook.com/domiflash.girardot" target="_blank" rel="noopener">Facebook</a>
       <a href="https://www.tiktok.com/@domiflash.girardot" target="_blank" rel="noopener">TikTok</a>
     </div>
-  </div>
-
-  <div class="footer-bottom">
-    <span>© 2026 Domiflash. Todos los derechos reservados.</span>
-    <div class="footer-legal">
-      <span>Términos y condiciones</span>
-      <span>Política de privacidad</span>
-    </div>
-  </div>
-</footer>
+  </footer>
 
   <script>
-    (function(){
-      const modal = document.getElementById('helpModal');
-      const form = document.getElementById('purchaseHelpForm');
-      const closeBtn = document.getElementById('helpModalClose');
-      const openButtons = document.querySelectorAll('.help-open');
-      const nameInput = document.getElementById('helpName');
-
-      function openModal(){
-        modal.classList.add('is-open');
-        modal.setAttribute('aria-hidden','false');
-        document.body.classList.add('modal-open');
-        setTimeout(() => nameInput?.focus(), 50);
-      }
-      function closeModal(){
-        modal.classList.remove('is-open');
-        modal.setAttribute('aria-hidden','true');
-        document.body.classList.remove('modal-open');
-      }
-
-      openButtons.forEach(button => button.addEventListener('click', openModal));
-      closeBtn.addEventListener('click', closeModal);
-      modal.addEventListener('click', event => { if(event.target === modal) closeModal(); });
-      document.addEventListener('keydown', event => { if(event.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
-
-      form.addEventListener('submit', function(event){
-        event.preventDefault();
-        const name = document.getElementById('helpName').value.trim();
-        const address = document.getElementById('helpAddress').value.trim();
-        const phone = document.getElementById('helpPhone').value.trim();
-        const request = document.getElementById('helpRequest').value.trim();
-        const message = [
-          'Hola Domiflash, necesito ayuda con una compra.',
-          '',
-          'Nombre: ' + name,
-          'Dirección: ' + address,
-          'Número de contacto: ' + phone,
-          '',
-          '¿Qué necesito comprar?',
-          request,
-          '',
-          'Por favor, ayúdenme a gestionar esta compra.'
-        ].join('\n');
-        window.open('https://wa.me/573184947037?text=' + encodeURIComponent(message), '_blank', 'noopener');
-        closeModal();
-      });
-    })();
+    document.getElementById("purchaseHelpForm")?.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const name = document.getElementById("helpName").value.trim();
+      const address = document.getElementById("helpAddress").value.trim();
+      const phone = document.getElementById("helpPhone").value.trim();
+      const request = document.getElementById("helpRequest").value.trim();
+      const message = [
+        "Hola Domiflash, necesito ayuda con una compra.",
+        "",
+        `Nombre: ${name}`,
+        `Dirección: ${address}`,
+        `Número de contacto: ${phone}`,
+        "",
+        "¿Qué necesito comprar?",
+        request,
+        "",
+        "Por favor, ayúdenme a gestionar esta compra."
+      ].join("\n");
+      window.open(`https://wa.me/573184947037?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+    });
   </script>
   <script src="js/script.js"></script>
 </body>
