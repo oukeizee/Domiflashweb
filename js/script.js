@@ -293,9 +293,51 @@ function initHomeAdPopup() {
   }
 }
 
+/* =========================================
+   VOLVER AL INICIO EN LA PARTE SUPERIOR
+   ========================================= */
+function initTopBackLink() {
+  const path = window.location.pathname.toLowerCase();
+  const isHome = path.endsWith("/") || path.endsWith("index.html") || path === "";
+  if (isHome) return;
+
+  const existing = document.querySelector("main .back-link");
+  const pedidoPage = !!document.getElementById("orderRestaurantList");
+  const commercePage = !!document.querySelector("main.commerce-page .back-link");
+
+  if (existing) {
+    existing.href = "index.html";
+    existing.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg><span>Volver al inicio</span>';
+    if (pedidoPage || commercePage) return;
+    if (existing.closest(".form-actions")) existing.remove();
+    else return;
+  }
+
+  if (pedidoPage || commercePage) return;
+
+  const link = document.createElement("a");
+  link.className = "back-link icon-button";
+  link.href = "index.html";
+  link.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg><span>Volver al inicio</span>';
+
+  const main = document.querySelector("main");
+  if (!main) return;
+
+  if (main.classList.contains("form-page")) {
+    main.style.position = "relative";
+    link.style.position = "absolute";
+    link.style.top = "55px";
+    link.style.left = "max(4vw, 20px)";
+    main.insertBefore(link, main.firstChild);
+  } else {
+    main.insertBefore(link, main.firstChild);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initRestaurantsPage();
   initMenuPage();
   initOrderBuilderPage();
   initHomeAdPopup();
+  initTopBackLink();
 });
