@@ -1,5 +1,5 @@
 (function(){
-  const BASE_SCRIPT = "script-base.js";
+  const BASE_SCRIPT = "js/script-base.js";
   const OPEN_HOUR = 10;
   const CLOSE_HOUR = 22;
 
