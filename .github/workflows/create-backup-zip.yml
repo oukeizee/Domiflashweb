@@ -1,0 +1,23 @@
+name: Create backup ZIP
+
+on:
+  push:
+    branches:
+      - 'tmp/backup-86e9d21'
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create ZIP
+        run: |
+          zip -r domiflash-backup-86e9d21.zip . -x '.git/*' '.github/*'
+
+      - name: Upload ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: domiflash-backup-86e9d21
+          path: domiflash-backup-86e9d21.zip
