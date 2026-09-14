@@ -3,11 +3,6 @@
   const OPEN_HOUR = 10;
   const CLOSE_HOUR = 22;
 
-  // Carga el script principal de forma sincrónica para que sus
-  // listeners de DOMContentLoaded se registren antes de que termine
-  // de cargar la página. El fallo anterior hacía que la lista quedara vacía.
-  document.write('<script src="' + BASE_SCRIPT + '"><\\/script>');
-
   function isRestaurantOpenNow(){
     const now = new Date();
     const day = now.getDay();
@@ -78,5 +73,24 @@
     }
   }
 
-  startClosedState();
+  function initBasePage(){
+    if (typeof initRestaurantsPage === 'function') initRestaurantsPage();
+    if (typeof initMenuPage === 'function') initMenuPage();
+    if (typeof initOrderBuilderPage === 'function') initOrderBuilderPage();
+    if (typeof initHomeAdPopup === 'function') initHomeAdPopup();
+    if (typeof initTopBackLink === 'function') initTopBackLink();
+    startClosedState();
+  }
+
+  function loadBaseScript(){
+    const script = document.createElement('script');
+    script.src = BASE_SCRIPT;
+    script.onload = () => {
+      initBasePage();
+    };
+    script.onerror = () => console.error('No se pudo cargar el script principal de Domiflash.');
+    document.head.appendChild(script);
+  }
+
+  loadBaseScript();
 })();
