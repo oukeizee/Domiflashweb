@@ -1,0 +1,1 @@
+Cambio: restauración de la lista de restaurantes y preparación para locales cerrados no seleccionables.
