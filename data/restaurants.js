@@ -25,10 +25,10 @@ window.RESTAURANTS = [
     "id": 3,
     "name": "Fresatto",
     "menu": [
-      {"id": 1, "name": "Salchipapa Fresatto", "description": "Papas, salchicha, queso, salsas de la casa y maíz.", "price": 18000},
-      {"id": 2, "name": "Hamburguesa Fresatto", "description": "Carne, queso, lechuga, tomate, cebolla y salsa especial.", "price": 22000},
-      {"id": 3, "name": "Perro Fresatto", "description": "Salchicha, queso, papa ripio, salsas y cebolla.", "price": 17000},
-      {"id": 4, "name": "Choripapa", "description": "Chorizo, papas, queso, maíz y salsas.", "price": 20000},
+      {"id": 1, "name": "Oblea Tradicional", "description": "Arequipe, Queso.", "price": 5000},
+      {"id": 2, "name": "Oblea Especial", "description": "Arequipe, Fresa Picada, Crema de la Casa.", "price": 10000},
+      {"id": 3, "name": "Obleatto", "description": "Crema Fresa Banano Oblea Arequipe, Oblea en Triangulos, Dulce de Mora, Queso, Mas Arequipe.", "price": 24000},
+      {"id": 4, "name": "Fresas con Chocolate", "description": "ChocoFresatto.", "price": 20000},
       {"id": 5, "name": "Combo Fresatto", "description": "Hamburguesa, papas y bebida personal.", "price": 28000}
     ]
   },
