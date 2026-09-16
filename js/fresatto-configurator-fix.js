@@ -4,13 +4,13 @@
   const esc=v=>{const d=document.createElement('div');d.textContent=String(v??'');return d.innerHTML;};
   const choice=v=>typeof v==='string'?{name:v,price:0}:v;
   const values=(state,id)=>{const v=state[id];return v?(Array.isArray(v)?v:[v]):[];};
-  let modal=null,active=null;
+  let modal=null,active=null,adding=false;
   function isFresatto(){const id=new URLSearchParams(location.search).get('id');return String(id)==='3'||Number(window.currentRestaurant?.id)===3||String(window.currentRestaurant?.name||'').toLowerCase()==='fresatto';}
   function getStep(product,id){return product?.customization?.steps?.find(s=>s.id===id);}
   function dynamicMax(product,step,state){const size=getStep(product,'size'),selected=values(state,'size')[0];if(size&&selected){const c=(size.choices||[]).map(choice).find(x=>x.name===selected);if(c){if(step.id==='topping'&&Number.isFinite(c.toppingMax))return c.toppingMax;if(step.id==='base'&&Number.isFinite(c.baseMax))return c.baseMax;if(step.id==='untable'&&Number.isFinite(c.untableMax))return c.untableMax;}}return Number.isFinite(step.max)?step.max:null;}
   function price(product,state){let total=Number(product.price)||0,replaced=false;(product.customization?.steps||[]).forEach(step=>values(state,step.id).forEach(v=>{const c=(step.choices||[]).map(choice).find(x=>x.name===v);if(!c)return;if(step.priceMode==='replace'&&!replaced){total=Number(c.price)||0;replaced=true;}else if(step.priceMode!=='replace')total+=Number(c.price)||0;}));return total;}
-  function summary(product,state){return(product.customization?.steps||[]).map(step=>{const v=values(state,step.id).filter(x=>x!=='No');if(!v.length)return '';return `${step.title.replace(/^Elige\\s+/i,'').replace(/\\s*\\(.+?\\)\\s*$/,'')}: ${v.join(', ')}`;}).filter(Boolean).join(' • ');}
-  function close(){if(!modal)return;modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');active=null;}
+  function summary(product,state){return(product.customization?.steps||[]).map(step=>{const v=values(state,step.id).filter(x=>x!=='No');if(!v.length)return '';return `${step.title.replace(/^Elige\s+/i,'').replace(/\s*\(.+?\)\s*$/,'')}: ${v.join(', ')}`;}).filter(Boolean).join(' • ');}
+  function close(){if(!modal)return;modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');active=null;adding=false;}
   function addToCart(product,state){
     const text=summary(product,state),unit=price(product,state),key=`${product.id}|${text||'base'}`;
     if(!Array.isArray(window.__domiflashRestaurantCart))window.__domiflashRestaurantCart=[];
@@ -29,18 +29,40 @@
   }
   function valid(product,state){return(product.customization?.steps||[]).every(step=>!step.required||values(state,step.id).length>=(Number.isFinite(Number(step.min))?Number(step.min):1));}
   function select(ctx,id,value){const step=getStep(ctx.product,id);if(!step)return;const current=values(ctx.state,id);if(step.type==='multiple'){const max=dynamicMax(ctx.product,step,ctx.state);ctx.state[id]=current.includes(value)?current.filter(v=>v!==value):[...current,value];if(Number.isFinite(max))ctx.state[id]=ctx.state[id].slice(0,max);}else{ctx.state[id]=value;if(id==='size')['topping','base','untable'].forEach(otherId=>{const other=getStep(ctx.product,otherId);if(!other)return;const max=dynamicMax(ctx.product,other,ctx.state);if(Number.isFinite(max))ctx.state[otherId]=values(ctx.state,otherId).slice(0,max);});}}
+  function bindChoiceButtons(){if(!modal)return;modal.querySelectorAll('.config-choice').forEach(button=>{button.onclick=e=>{e.preventDefault();e.stopPropagation();if(button.disabled||!active)return;select(active,button.dataset.step,button.dataset.value);render();};});}
+  function confirmOrder(){
+    if(adding||!active)return false;
+    if(!valid(active.product,active.state))return false;
+    adding=true;
+    const product=active.product;
+    const state=JSON.parse(JSON.stringify(active.state));
+    try{
+      addToCart(product,state);
+      close();
+      return true;
+    }catch(error){
+      console.error('Domiflash: error al agregar producto al carrito',error);
+      adding=false;
+      return false;
+    }
+  }
+  function bindConfirm(){
+    if(!modal)return;
+    const confirm=modal.querySelector('#fixConfigConfirm');if(!confirm||confirm.dataset.bound)return;
+    confirm.dataset.bound='1';
+    const handler=e=>{e.preventDefault();e.stopImmediatePropagation();confirmOrder();};
+    confirm.onclick=handler;
+    confirm.addEventListener('click',handler,true);
+    confirm.addEventListener('pointerup',handler,true);
+    confirm.addEventListener('touchend',handler,{capture:true,passive:false});
+    window.__domiflashFresattoConfirmOrder=confirmOrder;
+  }
   function render(){
     if(!active)return;
     const m=ensureModal(),body=m.querySelector('#fixConfigBody');
     body.innerHTML=(active.product.customization?.steps||[]).map((step,i)=>{const selected=values(active.state,step.id),max=dynamicMax(active.product,step,active.state),limit=step.type==='multiple'&&max?`<small class="config-limit">Hasta ${max}</small>`:'';const opts=(step.choices||[]).map(raw=>{const c=choice(raw),on=selected.includes(c.name),disabled=step.type==='multiple'&&!on&&Number.isFinite(max)&&selected.length>=max;return `<button type="button" class="config-choice ${on?'selected':''}" data-step="${esc(step.id)}" data-value="${esc(c.name)}" ${disabled?'disabled':''} aria-pressed="${on?'true':'false'}"><span class="config-choice-check">${on?'✓':''}</span><span class="config-choice-main"><strong>${esc(c.name)}</strong>${Number(c.price)>0?`<small>+ ${money(c.price)}</small>`:''}</span></button>`;}).join('');return `<section class="config-step"><div class="config-step-head"><div><span class="config-step-number">${String(i+1).padStart(2,'0')}</span><h3>${esc(step.title)}</h3></div>${limit}</div><div class="config-choices">${opts}</div></section>`;}).join('');
     m.querySelector('#fixConfigTitle').textContent=active.product.name;m.querySelector('#fixConfigDesc').textContent=active.product.description||'Elige las opciones que deseas.';m.querySelector('#fixConfigTotal').textContent=money(price(active.product,active.state));
-    const confirm=m.querySelector('#fixConfigConfirm'),ready=valid(active.product,active.state);confirm.disabled=!ready;confirm.setAttribute('aria-disabled',String(!ready));confirm.classList.toggle('is-ready',ready);confirm.textContent=ready?'Agregar al pedido':'Completa tu selección';bindChoiceButtons();
-  }
-  function bindChoiceButtons(){if(!modal)return;modal.querySelectorAll('.config-choice').forEach(button=>{button.onclick=e=>{e.preventDefault();e.stopPropagation();if(button.disabled||!active)return;select(active,button.dataset.step,button.dataset.value);render();};});}
-  function bindConfirm(){
-    const confirm=modal.querySelector('#fixConfigConfirm');if(!confirm||confirm.dataset.bound)return;confirm.dataset.bound='1';
-    const handler=e=>{e.preventDefault();e.stopImmediatePropagation();if(!active)return;if(!valid(active.product,active.state))return;confirm.disabled=true;confirm.textContent='Agregando...';addToCart(active.product,active.state);close();setTimeout(renderCart,0);};
-    confirm.addEventListener('click',handler,true);confirm.addEventListener('pointerup',handler,true);confirm.addEventListener('touchend',handler,{capture:true,passive:false});
+    const confirm=m.querySelector('#fixConfigConfirm'),ready=valid(active.product,active.state);confirm.disabled=!ready;confirm.setAttribute('aria-disabled',String(!ready));confirm.classList.toggle('is-ready',ready);confirm.textContent=ready?'Agregar al pedido':'Completa tu selección';bindChoiceButtons();bindConfirm();
   }
   function ensureModal(){
     if(modal)return modal;
@@ -48,6 +70,6 @@
     modal.innerHTML=`<div class="product-configurator-backdrop"></div><section class="product-configurator-dialog" role="dialog" aria-modal="true"><button type="button" class="product-config-close" aria-label="Cerrar">×</button><div class="product-config-head"><span class="eyebrow">PERSONALIZA TU PEDIDO</span><h2 id="fixConfigTitle"></h2><p id="fixConfigDesc"></p></div><div id="fixConfigBody" class="product-config-body"></div><div class="product-config-footer"><div><span>Total</span><strong id="fixConfigTotal">$0</strong></div><button type="button" id="fixConfigConfirm" class="btn btn-primary">Completa tu selección</button></div></section></div>`;
     document.body.appendChild(modal);modal.querySelector('.product-config-close').addEventListener('click',close);modal.querySelector('.product-config-backdrop').addEventListener('click',close);bindConfirm();return modal;
   }
-  function open(product){active={product,state:{}};const m=ensureModal();m.classList.add('is-open');m.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');render();}
+  function open(product){adding=false;active={product,state:{}};const m=ensureModal();m.classList.add('is-open');m.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');render();}
   document.addEventListener('click',function(e){if(!isFresatto())return;const button=e.target.closest('.menu-add');if(!button)return;const product=(window.currentRestaurant?.menu||[]).find(p=>String(p.id)===String(button.dataset.productId));if(!product?.customization?.steps?.length)return;e.preventDefault();e.stopImmediatePropagation();open(product);},true);
 })();
