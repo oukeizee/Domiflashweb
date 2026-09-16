@@ -2,6 +2,7 @@
   const BASE_SCRIPT="js/script-base.js";
   const CUSTOM_SCRIPT="js/product-configurator.js";
   const FIX_SCRIPT="js/fresatto-configurator-fix.js";
+  const ASSET_VERSION="20260916-3";
   const OPEN_HOUR=10;
   const CLOSE_HOUR=22;
   const FRESATTO_NAME="Fresatto";
@@ -20,9 +21,9 @@
   function initRestaurantsFallback(){const grid=document.getElementById("restaurantGrid");if(!grid||!Array.isArray(window.RESTAURANT_DIRECTORY))return;if(!grid.children.length)renderDirectoryFallback();const search=document.getElementById("restaurantSearch");if(search&&!search.dataset.directoryFallbackBound){search.dataset.directoryFallbackBound="1";search.addEventListener("input",e=>renderDirectoryFallback(e.target.value));}patchFresattoSchedule();}
   function startClosedState(){const run=()=>{applyClosedState();setInterval(applyClosedState,30000);};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();}
   function initBasePage(){if(typeof initRestaurantsPage==='function')initRestaurantsPage();if(typeof initMenuPage==='function')initMenuPage();if(typeof initOrderBuilderPage==='function')initOrderBuilderPage();if(typeof initHomeAdPopup==='function')initHomeAdPopup();if(typeof initTopBackLink==='function')initTopBackLink();initRestaurantsFallback();startClosedState();}
-  function loadScript(src,onload){const script=document.createElement('script');script.src=src;script.onload=onload;script.onerror=()=>console.error(`No se pudo cargar ${src}`);document.head.appendChild(script);}
+  function loadScript(src,onload){const script=document.createElement('script');script.src=src+(src.includes('?')?'&':'?')+'v='+ASSET_VERSION;script.onload=onload;script.onerror=()=>console.error(`No se pudo cargar ${src}`);document.head.appendChild(script);}
   function loadCatalogData(next){const needsCatalog=!!document.getElementById("menuGrid")||!!document.getElementById("orderRestaurantList");if(!needsCatalog){next();return;}loadScript("data/restaurants.js",()=>loadScript("data/fresatto-menu.js",next));}
-  function loadConfiguratorStyles(){if(!document.getElementById("productConfiguratorStyles")){const link=document.createElement("link");link.id="productConfiguratorStyles";link.rel="stylesheet";link.href="css/product-configurator.css";document.head.appendChild(link);}}
+  function loadConfiguratorStyles(){if(!document.getElementById("productConfiguratorStyles")){const link=document.createElement("link");link.id="productConfiguratorStyles";link.rel="stylesheet";link.href="css/product-configurator.css?v="+ASSET_VERSION;document.head.appendChild(link);}}
   function loadCustomScript(){loadConfiguratorStyles();loadScript(CUSTOM_SCRIPT,()=>{loadScript(FIX_SCRIPT,()=>{initBasePage();setTimeout(initRestaurantsFallback,250);});});}
   function loadBaseScript(){loadScript(BASE_SCRIPT,loadCustomScript);}
   loadCatalogData(loadBaseScript);
