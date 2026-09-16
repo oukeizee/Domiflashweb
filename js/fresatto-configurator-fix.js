@@ -54,7 +54,14 @@
     modal.querySelector('#fixConfigConfirm').addEventListener('click',()=>{if(active&&valid(active.product,active.state)){addToCart(active.product,active.state);close();}});
     return modal;
   }
-  function valid(product,state){return(product.customization?.steps||[]).every(s=>!s.required||values(state,s.id).length>=(Number.isFinite(s.min)?s.min:1));}
+  function valid(product,state){
+    return (product.customization?.steps||[]).every(step=>{
+      if(!step.required)return true;
+      const selected=values(state,step.id);
+      const minimum=Number.isFinite(Number(step.min)) ? Number(step.min) : 1;
+      return selected.length>=minimum;
+    });
+  }
   function select(ctx,id,value){
     const step=getStep(ctx.product,id); if(!step)return;
     const current=values(ctx.state,id);
@@ -78,6 +85,7 @@
     modal.querySelectorAll('.config-choice').forEach(button=>{
       button.onclick=e=>{
         e.preventDefault();
+        e.stopPropagation();
         if(button.disabled||!active)return;
         select(active,button.dataset.step,button.dataset.value);
         render();
@@ -99,7 +107,12 @@
     m.querySelector('#fixConfigTitle').textContent=active.product.name;
     m.querySelector('#fixConfigDesc').textContent=active.product.description||'Elige las opciones que deseas.';
     m.querySelector('#fixConfigTotal').textContent=money(price(active.product,active.state));
-    m.querySelector('#fixConfigConfirm').disabled=!valid(active.product,active.state);
+    const confirm=m.querySelector('#fixConfigConfirm');
+    const ready=valid(active.product,active.state);
+    confirm.disabled=!ready;
+    confirm.setAttribute('aria-disabled',String(!ready));
+    confirm.classList.toggle('is-ready',ready);
+    confirm.textContent=ready?'Agregar al pedido':'Completa tu selección';
     bindChoiceButtons();
   }
   function addToCart(product,state){
