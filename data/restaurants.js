@@ -329,90 +329,25 @@ window.RESTAURANTS = [
 
   const style = document.createElement("style");
   style.textContent = `
-    .restaurant-schedule{
-      margin-top:18px;
-      padding:14px 14px 13px;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:14px;
-      background:rgba(255,255,255,.025);
-    }
-    .restaurant-schedule-title{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-      color:#fff;
-      font-size:.72rem;
-      font-weight:900;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-    .restaurant-schedule-time{
-      color:var(--yellow,#ffb300);
-      font-size:.78rem;
-      font-weight:800;
-      letter-spacing:0;
-      text-transform:none;
-      white-space:nowrap;
-    }
-    .schedule-days{
-      display:flex;
-      align-items:center;
-      justify-content:flex-start;
-      gap:7px;
-      flex-wrap:wrap;
-    }
-    .schedule-day{
-      width:30px;
-      height:30px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      border:1px solid rgba(255,179,0,.42);
-      background:rgba(255,179,0,.12);
-      color:var(--yellow,#ffb300);
-      font-size:.68rem;
-      font-weight:900;
-      line-height:1;
-      position:relative;
-    }
-    .schedule-day.closed{
-      border-color:rgba(255,76,76,.55);
-      background:rgba(255,76,76,.14);
-      color:#ff7777;
-    }
+    .restaurant-schedule{margin-top:18px;padding:14px 14px 13px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(255,255,255,.025)}
+    .restaurant-schedule-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;color:#fff;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+    .restaurant-schedule-time{color:var(--yellow,#ffb300);font-size:.78rem;font-weight:800;letter-spacing:0;text-transform:none;white-space:nowrap}
+    .schedule-days{display:flex;align-items:center;justify-content:flex-start;gap:7px;flex-wrap:wrap}
+    .schedule-day{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,179,0,.42);background:rgba(255,179,0,.12);color:var(--yellow,#ffb300);font-size:.68rem;font-weight:900;line-height:1;position:relative}
+    .schedule-day.closed{border-color:rgba(255,76,76,.55);background:rgba(255,76,76,.14);color:#ff7777}
     .schedule-day[title]{cursor:help}
-    .restaurant-schedule-closed{
-      margin:9px 0 0;
-      color:#999;
-      font-size:.72rem;
-      line-height:1.4;
-    }
+    .restaurant-schedule-closed{margin:9px 0 0;color:#999;font-size:.72rem;line-height:1.4}
     .restaurant-schedule-closed strong{color:#ff7777}
     .restaurant-card .restaurant-schedule{margin-top:14px}
     .restaurant-card{min-height:0}
     .restaurant-card .restaurant-name-button{margin-top:14px}
-    .restaurant-order-card .restaurant-schedule{
-      width:100%;
-      margin-top:9px;
-      padding:8px 0 0;
-      border:0;
-      border-top:1px solid rgba(255,255,255,.07);
-      border-radius:0;
-      background:transparent;
-    }
+    .restaurant-order-card .restaurant-schedule{width:100%;margin-top:9px;padding:8px 0 0;border:0;border-top:1px solid rgba(255,255,255,.07);border-radius:0;background:transparent}
     .restaurant-order-card .restaurant-schedule-title{font-size:.64rem;margin-bottom:7px}
     .restaurant-order-card .restaurant-schedule-time{font-size:.68rem}
     .restaurant-order-card .schedule-days{gap:5px}
     .restaurant-order-card .schedule-day{width:23px;height:23px;font-size:.58rem}
     .restaurant-order-card .restaurant-schedule-closed{font-size:.64rem;margin-top:6px}
-    @media(max-width:600px){
-      .restaurant-schedule{padding:12px}
-      .restaurant-schedule-time{font-size:.72rem}
-      .schedule-days{gap:6px}
-      .schedule-day{width:29px;height:29px}
-    }
+    @media(max-width:600px){.restaurant-schedule{padding:12px}.restaurant-schedule-time{font-size:.72rem}.schedule-days{gap:6px}.schedule-day{width:29px;height:29px}}
   `;
   document.head.appendChild(style);
 
@@ -421,13 +356,8 @@ window.RESTAURANTS = [
     const days = Array.isArray(schedule.days) ? schedule.days : DAYS;
     return `
       <div class="restaurant-schedule" aria-label="Horario de atención de ${String(restaurant?.name || "restaurante").replace(/"/g, "&quot;")}">
-        <div class="restaurant-schedule-title">
-          <span>Horario</span>
-          <span class="restaurant-schedule-time">${schedule.open} – ${schedule.close}</span>
-        </div>
-        <div class="schedule-days" aria-label="Días de servicio">
-          ${days.map(day => `<span class="schedule-day ${day.open ? "open" : "closed"}" title="${day.name}: ${day.open ? `${schedule.open} – ${schedule.close}` : "Cerrado"}">${day.label}</span>`).join("")}
-        </div>
+        <div class="restaurant-schedule-title"><span>Horario</span><span class="restaurant-schedule-time">${schedule.open} – ${schedule.close}</span></div>
+        <div class="schedule-days" aria-label="Días de servicio">${days.map(day => `<span class="schedule-day ${day.open ? "open" : "closed"}" title="${day.name}: ${day.open ? `${schedule.open} – ${schedule.close}` : "Cerrado"}">${day.label}</span>`).join("")}</div>
         <p class="restaurant-schedule-closed"><strong>Cierre:</strong> ${schedule.closedDays.join(", ")}</p>
       </div>
     `;
@@ -468,14 +398,9 @@ window.RESTAURANTS = [
 
   document.addEventListener("DOMContentLoaded", () => {
     decorateMenuPage();
-    setTimeout(() => {
-      decorateRestaurantGrid();
-      decorateOrderBuilder();
-    }, 0);
-
+    setTimeout(() => { decorateRestaurantGrid(); decorateOrderBuilder(); }, 0);
     const grid = document.getElementById("restaurantGrid");
     if (grid) new MutationObserver(decorateRestaurantGrid).observe(grid, { childList: true, subtree: true });
-
     const orderList = document.getElementById("orderRestaurantList");
     if (orderList) new MutationObserver(decorateOrderBuilder).observe(orderList, { childList: true, subtree: true });
   });
@@ -483,3 +408,14 @@ window.RESTAURANTS = [
   window.DOMIFLASH_SCHEDULE = SCHEDULE;
   window.domiflashScheduleMarkup = scheduleMarkup;
 })();
+
+/* =========================================
+   CATALOGOS SEPARADOS: DIRECTORIO VS PEDIDOS
+   =========================================
+   En "Arma tu pedido" se conserva TODO window.RESTAURANTS.
+   En la página "Restaurantes" se pueden ocultar futuros restaurantes
+   usando showInRestaurants: false en su registro.
+*/
+if (window.location.pathname.toLowerCase().endsWith("restaurantes.html")) {
+  window.RESTAURANTS = (window.RESTAURANTS || []).filter(restaurant => restaurant.showInRestaurants !== false);
+}
