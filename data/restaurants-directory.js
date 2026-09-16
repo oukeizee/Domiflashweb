@@ -55,7 +55,7 @@ window.RESTAURANT_DIRECTORY = [
 ];
 
 (function(){
-  const LOGO_PATH = "assets/images/fresatto-logo-clean.webp?v=20260916";
+  const LOGO_PATH = "assets/images/fresatto-logo-clean.svg?v=20260916-4";
 
   function isFresatto(card){
     if(!card) return false;
@@ -76,6 +76,8 @@ window.RESTAURANT_DIRECTORY = [
       img.alt = "Logo de Fresatto";
       img.decoding = "async";
       img.loading = "eager";
+      img.width = 150;
+      img.height = 150;
       card.insertBefore(img, numberWrap.nextSibling);
     });
   }
@@ -85,8 +87,8 @@ window.RESTAURANT_DIRECTORY = [
     const style = document.createElement("style");
     style.id = "fresattoLogoStyles";
     style.textContent = `
-      .fresatto-card-logo{display:block;width:150px;height:150px;object-fit:cover;border-radius:50%;margin:8px 0 18px;border:1px solid rgba(255,179,0,.55);box-shadow:0 12px 28px rgba(0,0,0,.35)}
-      @media(max-width:560px){.fresatto-card-logo{width:118px;height:118px;margin:6px 0 16px}}
+      .fresatto-card-logo{display:block!important;width:150px!important;height:150px!important;max-width:150px!important;object-fit:contain!important;object-position:center!important;border-radius:50%!important;margin:8px 0 18px!important;border:1px solid rgba(255,179,0,.55)!important;box-shadow:0 12px 28px rgba(0,0,0,.35)!important;background:#050505!important;opacity:1!important;visibility:visible!important}
+      @media(max-width:560px){.fresatto-card-logo{width:118px!important;height:118px!important;max-width:118px!important;margin:6px 0 16px!important}}
     `;
     document.head.appendChild(style);
   }
