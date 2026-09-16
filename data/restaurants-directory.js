@@ -1,15 +1,31 @@
 /* =========================================
    DIRECTORIO PÚBLICO DE RESTAURANTES
    -----------------------------------------
-   Este archivo controla ÚNICAMENTE qué restaurantes
-   aparecen en la página "Restaurantes".
+   Este archivo pertenece ÚNICAMENTE a la página
+   "Restaurantes".
 
-   NO contiene las cartas. Las cartas siguen en
-   data/restaurants.js y son utilizadas por "Arma tu pedido".
+   No contiene las cartas ni los productos.
+   La página "Arma tu pedido" utiliza su propio
+   catálogo completo en data/restaurants.js.
 
-   Para publicar un restaurante en el directorio,
-   agrega su id y nombre aquí.
+   Para agregar un restaurante al directorio público,
+   agrega solamente su id y nombre aquí.
    ========================================= */
+
+window.RESTAURANT_DIRECTORY_SCHEDULE = {
+  open: "10:00 a. m.",
+  close: "10:00 p. m.",
+  closedDays: ["Domingo"],
+  days: [
+    { label: "D", name: "Domingo", open: false },
+    { label: "L", name: "Lunes", open: true },
+    { label: "M", name: "Martes", open: true },
+    { label: "M", name: "Miércoles", open: true },
+    { label: "J", name: "Jueves", open: true },
+    { label: "V", name: "Viernes", open: true },
+    { label: "S", name: "Sábado", open: true }
+  ]
+};
 
 window.RESTAURANT_DIRECTORY = [
   { "id": 1, "name": "Junior Pizza" },
