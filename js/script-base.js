@@ -17,10 +17,14 @@ function getRestaurantById(id) {
   return (window.RESTAURANTS || []).find(r => r.id === Number(id));
 }
 
+function getRestaurantDirectory() {
+  return Array.isArray(window.RESTAURANT_DIRECTORY) ? window.RESTAURANT_DIRECTORY : [];
+}
+
 function renderRestaurants(filter = "") {
   const grid = document.getElementById("restaurantGrid");
   if (!grid) return;
-  const restaurants = Array.isArray(window.RESTAURANTS) ? window.RESTAURANTS : [];
+  const restaurants = getRestaurantDirectory();
   const term = String(filter || "").trim().toLocaleLowerCase("es");
   const list = restaurants.filter(r => String(r.name || "").toLocaleLowerCase("es").includes(term));
   const count = document.getElementById("restaurantCount");
