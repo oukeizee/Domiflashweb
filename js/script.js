@@ -59,6 +59,66 @@
     });
   }
 
+  function renderDirectoryFallback(filter = ""){
+    const grid = document.getElementById("restaurantGrid");
+    const restaurants = Array.isArray(window.RESTAURANT_DIRECTORY) ? window.RESTAURANT_DIRECTORY : [];
+    if (!grid || !restaurants.length) return;
+
+    const term = String(filter || "").trim().toLocaleLowerCase("es");
+    const list = restaurants.filter(r => String(r.name || "").toLocaleLowerCase("es").includes(term));
+    const count = document.getElementById("restaurantCount");
+    if (count) count.textContent = `${list.length} restaurante${list.length === 1 ? "" : "s"}`;
+
+    const schedule = window.RESTAURANT_DIRECTORY_SCHEDULE;
+    const scheduleHtml = schedule ? `
+      <div class="restaurant-schedule" aria-label="Horario de atención">
+        <div class="restaurant-schedule-title">
+          <span>Horario</span>
+          <span class="restaurant-schedule-time">${schedule.open} – ${schedule.close}</span>
+        </div>
+        <div class="schedule-days" aria-label="Días de servicio">
+          ${(schedule.days || []).map(day => `<span class="schedule-day ${day.open ? "open" : "closed"}" title="${day.name}: ${day.open ? `${schedule.open} – ${schedule.close}` : "Cerrado"}">${day.label}</span>`).join("")}
+        </div>
+        <p class="restaurant-schedule-closed"><strong>Cierre:</strong> ${(schedule.closedDays || []).join(", ")}</p>
+      </div>
+    ` : "";
+
+    if (!list.length) {
+      grid.innerHTML = `<div class="empty-cart restaurant-empty" style="grid-column:1/-1">No encontramos ese restaurante.</div>`;
+      return;
+    }
+
+    const safe = value => {
+      const div = document.createElement("div");
+      div.textContent = value == null ? "" : String(value);
+      return div.innerHTML;
+    };
+
+    grid.innerHTML = list.map((r, index) => `
+      <article class="restaurant-card reveal" style="animation-delay:${Math.min(index * 0.025, 0.35)}s">
+        <div><span class="restaurant-number">${String(r.id).padStart(2, "0")}</span></div>
+        <button class="restaurant-name-button" type="button" onclick="window.location.href='restaurante.html?id=${encodeURIComponent(r.id)}'">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v7M3.5 3v5a2.5 2.5 0 0 0 5 0V3M6 10.5V21M17 3v18M17 3c2.2 1.7 3.5 4.2 3.5 7v1H17"/></svg><span>${safe(r.name)}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </button>
+        ${scheduleHtml}
+      </article>
+    `).join("");
+
+    applyClosedState();
+  }
+
+  function initRestaurantsFallback(){
+    const grid = document.getElementById("restaurantGrid");
+    if (!grid || !Array.isArray(window.RESTAURANT_DIRECTORY)) return;
+    if (!grid.children.length) renderDirectoryFallback();
+
+    const search = document.getElementById("restaurantSearch");
+    if (search && !search.dataset.directoryFallbackBound) {
+      search.dataset.directoryFallbackBound = "1";
+      search.addEventListener("input", e => renderDirectoryFallback(e.target.value));
+    }
+  }
+
   function startClosedState(){
     const run = () => {
       applyClosedState();
@@ -79,6 +139,7 @@
     if (typeof initOrderBuilderPage === 'function') initOrderBuilderPage();
     if (typeof initHomeAdPopup === 'function') initHomeAdPopup();
     if (typeof initTopBackLink === 'function') initTopBackLink();
+    initRestaurantsFallback();
     startClosedState();
   }
 
@@ -87,8 +148,13 @@
     script.src = BASE_SCRIPT;
     script.onload = () => {
       initBasePage();
+      setTimeout(initRestaurantsFallback, 250);
     };
-    script.onerror = () => console.error('No se pudo cargar el script principal de Domiflash.');
+    script.onerror = () => {
+      console.error('No se pudo cargar el script principal de Domiflash.');
+      initRestaurantsFallback();
+      startClosedState();
+    };
     document.head.appendChild(script);
   }
 
