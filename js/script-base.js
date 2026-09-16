@@ -21,6 +21,24 @@ function getRestaurantDirectory() {
   return Array.isArray(window.RESTAURANT_DIRECTORY) ? window.RESTAURANT_DIRECTORY : [];
 }
 
+function renderDirectorySchedule() {
+  const schedule = window.RESTAURANT_DIRECTORY_SCHEDULE;
+  if (!schedule) return "";
+  const days = Array.isArray(schedule.days) ? schedule.days : [];
+  return `
+    <div class="restaurant-schedule" aria-label="Horario de atención">
+      <div class="restaurant-schedule-title">
+        <span>Horario</span>
+        <span class="restaurant-schedule-time">${schedule.open} – ${schedule.close}</span>
+      </div>
+      <div class="schedule-days" aria-label="Días de servicio">
+        ${days.map(day => `<span class="schedule-day ${day.open ? "open" : "closed"}" title="${day.name}: ${day.open ? `${schedule.open} – ${schedule.close}` : "Cerrado"}">${day.label}</span>`).join("")}
+      </div>
+      <p class="restaurant-schedule-closed"><strong>Cierre:</strong> ${schedule.closedDays.join(", ")}</p>
+    </div>
+  `;
+}
+
 function renderRestaurants(filter = "") {
   const grid = document.getElementById("restaurantGrid");
   if (!grid) return;
@@ -39,6 +57,7 @@ function renderRestaurants(filter = "") {
       <button class="restaurant-name-button" type="button" onclick="window.location.href='restaurante.html?id=${encodeURIComponent(r.id)}'">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v7M3.5 3v5a2.5 2.5 0 0 0 5 0V3M6 10.5V21M17 3v18M17 3c2.2 1.7 3.5 4.2 3.5 7v1H17"/></svg><span>${escapeHtml(r.name)}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
       </button>
+      ${renderDirectorySchedule()}
     </article>
   `).join("");
 }
