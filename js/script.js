@@ -28,10 +28,16 @@
     document.querySelectorAll('.restaurant-card').forEach(card=>{
       if(!isFresattoCard(card))return;
       const time=card.querySelector('.restaurant-schedule-time');
-      if(time)time.textContent=FRESATTO_SCHEDULE_TEXT;
-      card.querySelectorAll('.schedule-day').forEach(day=>{day.classList.remove('closed');day.classList.add('open');day.title=`${day.textContent.trim()}: ${FRESATTO_SCHEDULE_TEXT}`;});
+      if(time&&time.textContent!==FRESATTO_SCHEDULE_TEXT)time.textContent=FRESATTO_SCHEDULE_TEXT;
+      card.querySelectorAll('.schedule-day').forEach(day=>{
+        day.classList.remove('closed');
+        day.classList.add('open');
+        const title=`${day.textContent.trim()}: ${FRESATTO_SCHEDULE_TEXT}`;
+        if(day.title!==title)day.title=title;
+      });
       const close=card.querySelector('.restaurant-schedule-closed');
-      if(close)close.innerHTML='<strong>Horario:</strong> 2:00 a. m. – 12:00 a. m.';
+      const closeText='<strong>Horario:</strong> 2:00 a. m. – 12:00 a. m.';
+      if(close&&close.innerHTML!==closeText)close.innerHTML=closeText;
     });
   }
 
@@ -70,7 +76,10 @@
   }
 
   function initRestaurantsFallback(){const grid=document.getElementById("restaurantGrid");if(!grid||!Array.isArray(window.RESTAURANT_DIRECTORY))return;if(!grid.children.length)renderDirectoryFallback();const search=document.getElementById("restaurantSearch");if(search&&!search.dataset.directoryFallbackBound){search.dataset.directoryFallbackBound="1";search.addEventListener("input",e=>renderDirectoryFallback(e.target.value));}patchFresattoSchedule();}
-  function startClosedState(){const run=()=>{applyClosedState();const observer=new MutationObserver(()=>{applyClosedState();patchFresattoSchedule();});observer.observe(document.body,{childList:true,subtree:true});setInterval(applyClosedState,30000);};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();}
+  function startClosedState(){
+    const run=()=>{applyClosedState();setInterval(applyClosedState,30000);};
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+  }
   function initBasePage(){if(typeof initRestaurantsPage==='function')initRestaurantsPage();if(typeof initMenuPage==='function')initMenuPage();if(typeof initOrderBuilderPage==='function')initOrderBuilderPage();if(typeof initHomeAdPopup==='function')initHomeAdPopup();if(typeof initTopBackLink==='function')initTopBackLink();initRestaurantsFallback();startClosedState();}
   function loadScript(src,onload){const script=document.createElement('script');script.src=src;script.onload=onload;script.onerror=()=>console.error(`No se pudo cargar ${src}`);document.head.appendChild(script);}
   function loadCatalogData(next){const needsCatalog=!!document.getElementById("menuGrid")||!!document.getElementById("orderRestaurantList");if(!needsCatalog){next();return;}loadScript("data/restaurants.js",()=>loadScript("data/fresatto-menu.js",next));}
