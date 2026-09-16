@@ -3,14 +3,17 @@
   const CUSTOM_SCRIPT="js/product-configurator.js";
   const OPEN_HOUR=10;
   const CLOSE_HOUR=22;
+  const FRESATTO_NAME="Fresatto";
 
   function isRestaurantOpenNow(){const now=new Date();const day=now.getDay();const hour=now.getHours()+(now.getMinutes()/60);return day!==0&&hour>=OPEN_HOUR&&hour<CLOSE_HOUR;}
+  function isFresattoCard(card){return String(card?.textContent||"").toLocaleLowerCase("es").includes(FRESATTO_NAME.toLocaleLowerCase("es"));}
+  function isFresattoMenu(){return String(window.currentRestaurant?.name||"").toLocaleLowerCase("es")===FRESATTO_NAME.toLocaleLowerCase("es");}
   function closedLabel(){return '<span class="closed-badge">Cerrado ahora</span>';}
   function applyClosedState(){
-    const open=isRestaurantOpenNow();
-    document.querySelectorAll('.restaurant-card').forEach(card=>{const button=card.querySelector('.restaurant-name-button');if(!button)return;card.classList.toggle('is-closed',!open);button.classList.toggle('is-closed',!open);button.disabled=!open;button.setAttribute('aria-disabled',String(!open));if(!open){button.setAttribute('title','Este restaurante está cerrado');if(!card.querySelector('.closed-badge')){const number=card.querySelector('.restaurant-number');if(number)number.insertAdjacentHTML('afterend',closedLabel());}}else{button.removeAttribute('title');card.querySelector('.closed-badge')?.remove();}});
-    document.querySelectorAll('.restaurant-order-card').forEach(card=>{card.classList.toggle('is-closed',!open);card.disabled=!open;card.setAttribute('aria-disabled',String(!open));if(!open)card.setAttribute('title','Este restaurante está cerrado');else card.removeAttribute('title');});
-    document.querySelectorAll('.menu-add').forEach(button=>{if(button.dataset.closedBaseLabel===undefined)button.dataset.closedBaseLabel=button.textContent.trim();button.disabled=!open;if(!open){button.textContent='Restaurante cerrado';button.setAttribute('title','Este restaurante está cerrado');}else{button.textContent=button.dataset.closedBaseLabel;button.removeAttribute('title');}});
+    const globalOpen=isRestaurantOpenNow();
+    document.querySelectorAll('.restaurant-card').forEach(card=>{const button=card.querySelector('.restaurant-name-button');if(!button)return;const open=globalOpen||isFresattoCard(card);card.classList.toggle('is-closed',!open);button.classList.toggle('is-closed',!open);button.disabled=!open;button.setAttribute('aria-disabled',String(!open));if(!open){button.setAttribute('title','Este restaurante está cerrado');if(!card.querySelector('.closed-badge')){const number=card.querySelector('.restaurant-number');if(number)number.insertAdjacentHTML('afterend',closedLabel());}}else{button.removeAttribute('title');card.querySelector('.closed-badge')?.remove();}});
+    document.querySelectorAll('.restaurant-order-card').forEach(card=>{const open=globalOpen||isFresattoCard(card);card.classList.toggle('is-closed',!open);card.disabled=!open;card.setAttribute('aria-disabled',String(!open));if(!open)card.setAttribute('title','Este restaurante está cerrado');else card.removeAttribute('title');});
+    document.querySelectorAll('.menu-add').forEach(button=>{if(button.dataset.closedBaseLabel===undefined)button.dataset.closedBaseLabel=button.textContent.trim();const open=globalOpen||isFresattoMenu();button.disabled=!open;if(!open){button.textContent='Restaurante cerrado';button.setAttribute('title','Este restaurante está cerrado');}else{button.textContent=button.dataset.closedBaseLabel;button.removeAttribute('title');}});
   }
   function renderDirectoryFallback(filter=""){
     const grid=document.getElementById("restaurantGrid"),restaurants=Array.isArray(window.RESTAURANT_DIRECTORY)?window.RESTAURANT_DIRECTORY:[];if(!grid||!restaurants.length)return;
