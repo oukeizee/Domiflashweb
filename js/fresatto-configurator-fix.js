@@ -76,16 +76,12 @@
   function bindChoiceButtons(){
     if(!modal)return;
     modal.querySelectorAll('.config-choice').forEach(button=>{
-      const handler=e=>{
+      button.onclick=e=>{
         e.preventDefault();
-        e.stopPropagation();
         if(button.disabled||!active)return;
         select(active,button.dataset.step,button.dataset.value);
         render();
       };
-      button.addEventListener('pointerup',handler,{passive:false});
-      button.addEventListener('click',handler);
-      button.addEventListener('touchend',handler,{passive:false});
     });
   }
   function render(){
