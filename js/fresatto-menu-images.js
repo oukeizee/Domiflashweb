@@ -2,24 +2,24 @@
   const FRESATTO_ID="3";
   const DISH_IMAGES={
     "Oblea Tradicional":"https://img0.didiglobal.com/static/soda_public/do1_t5UBZNJmVMkNTr23yDvt",
-    "Oblea Especial":"https://assets.touch2success.com/static/fb27f225da54f1fb3842cf95fe2addd4/img/1744112660phpAnQGZ3.jpg",
-    "Oblatto":"https://tb-static.uber.com/prod/image-proc/processed_images/f8b1ec214eb95635b47eb7721f2826cc/268ee1a1296808aa6eae11eb597de84d.jpeg",
-    "ChocoFresatto":"https://dashanddishes.com/assets/images/1773336357630-6qcnvsht.webp",
-    "ChocoBowl":"https://cms.neugebauer.com.br/storage/recipes/1598103169-Capa.jpg",
-    "Ensalada de Frutas":"https://images.deliveryhero.io/image/talabat/MenuItems/Fruit_Salad_with_Ice_Crea638772961137599074.jpg",
+    "Oblea Especial":"https://www.gettyimages.com/",
+    "Oblatto":"https://img0.didiglobal.com/static/soda_public/do1_3qXIKxerAK3L9L8dpPvp",
+    "ChocoFresatto":"https://www.flowerstocolombia.com/cdn/shop/files/703-46-2.jpg?v=1725482010&width=533",
+    "ChocoBowl":"https://img0.didiglobal.com/static/soda_public/do1_eGu1X2khAsmUyILLNXuq",
+    "Ensalada de Frutas":"https://img0.didiglobal.com/static/soda_public/do1_H7FNuLJlIScSsMQ7n8bQ",
     "Fresas con Crema":"https://images.aws.nestle.recipes/resized/7bf7f0e6d29d285e260b0246ad22a8e6_strawberries_with_cream_new_1080_850.jpg",
-    "Quesudita":"https://img0.didiglobal.com/static/soda_public/do1_t5UBZNJmVMkNTr23yDvt",
-    "Heladita":"https://barrapro.com/cdn/shop/files/D_NQ_NP_2X_708810-MLM82273969222_022025-F_700x700.webp?v=1757699830",
+    "Quesudita":"https://3.bp.blogspot.com/-7wlP8MwRdKY/WfCze-Q7jnI/AAAAAAAAIqg/5_gRXqs5YGYinu7HYPMocA8GPBZ4uf0BACLcBGAs/w1684-h1069-p-k-no-nu/oblea_de_fresa_lg.jpg",
+    "Heladita":"https://media.a24.com/p/ac50a67db2a76de60ae21d162b4c0960/adjuntos/296/imagenes/007/920/0007920051/helado-3.jpeg",
     "Mini Donas":"https://mogujatosama.rs/sites/default/files/images/249f2367fc462c819fc310285abd4146_large.jpg",
-    "Mini Pancakes":"https://dashanddishes.com/assets/images/1773336357630-6qcnvsht.webp",
-    "Bowl Frutal":"https://images.deliveryhero.io/image/talabat/MenuItems/Fruit_Salad_with_Ice_Crea638772961137599074.jpg",
-    "Postre en Vaso":"https://cms.neugebauer.com.br/storage/recipes/1598103169-Capa.jpg",
-    "Cremosos":"https://cms.neugebauer.com.br/storage/recipes/1598103169-Capa.jpg",
+    "Mini Pancakes":"https://tb-static.uber.com/prod/image-proc/processed_images/a0a274e9cd3a89222bd106c7cd443cf0/f0d1762b91fd823a1aa9bd0dab5c648d.jpeg",
+    "Bowl Frutal":"https://img0.didiglobal.com/static/soda_public/do1_H7FNuLJlIScSsMQ7n8bQ",
+    "Postre en Vaso":"https://lirp.cdn-website.com/fc8fbf6b/dms3rep/multi/opt/Captura%2Bde%2Bpantalla%2B2023-08-01%2B143936-1920w.png",
+    "Cremosos":"https://lirp.cdn-website.com/fc8fbf6b/dms3rep/multi/opt/Captura%2Bde%2Bpantalla%2B2023-08-01%2B143936-1920w.png",
     "Jugo":"https://d31f1ehqijlcua.cloudfront.net/n/e/0/c/3/e0c3cdbbf3c2014ebd4213ebbb4aa9d90a3c5ff2_Beverages_508304_04.jpg",
-    "Granizado":"https://andy8654.github.io/proyecto-CoderHouse/img/cremolada-bebidas.jpg",
+    "Granizado":"https://mixies.com.co/storage/2025/03/Granizado-mixies-maracuya.jpg",
     "Milo":"https://makanhub.my/images/items/bv9iced-milo-johnnys-restaurant.webp",
     "Botella de agua":"https://walmarthn.vtexassets.com/arquivos/ids/673427/3377_02.jpg?v=638864823944200000",
-    "Botella de agua con gas":"https://walmarthn.vtexassets.com/arquivos/ids/673427/3377_02.jpg?v=638864823944200000"
+    "Botella de agua con gas":"https://mistiendas.com.co/16072-large_default/agua-brisa-con-gas-x600ml.jpg"
   };
   function isFresatto(){const id=new URLSearchParams(location.search).get("id");return String(id||"")===FRESATTO_ID||String(window.currentRestaurant?.id||"")===FRESATTO_ID||String(window.currentRestaurant?.name||"").toLowerCase()==="fresatto";}
   function addStyles(){if(document.getElementById("fresattoVisualMenuStyles"))return;const style=document.createElement("style");style.id="fresattoVisualMenuStyles";style.textContent=`
