@@ -2,7 +2,8 @@
   const BASE_SCRIPT="js/script-base.js";
   const CUSTOM_SCRIPT="js/product-configurator.js";
   const FIX_SCRIPT="js/fresatto-configurator-fix.js";
-  const ASSET_VERSION="20260916-4";
+  const MENU_IMAGE_SCRIPT="js/fresatto-menu-images.js";
+  const ASSET_VERSION="20260917-1";
   const OPEN_HOUR=10;
   const CLOSE_HOUR=22;
   const FRESATTO_NAME="Fresatto";
@@ -24,7 +25,7 @@
   function loadScript(src,onload){const script=document.createElement('script');script.src=src+(src.includes('?')?'&':'?')+'v='+ASSET_VERSION;script.onload=onload;script.onerror=()=>console.error(`No se pudo cargar ${src}`);document.head.appendChild(script);}
   function loadCatalogData(next){const needsCatalog=!!document.getElementById("menuGrid")||!!document.getElementById("orderRestaurantList");if(!needsCatalog){next();return;}loadScript("data/restaurants.js",()=>loadScript("data/fresatto-menu.js",next));}
   function loadConfiguratorStyles(){if(!document.getElementById("productConfiguratorStyles")){const link=document.createElement('link');link.id="productConfiguratorStyles";link.rel="stylesheet";link.href="css/product-configurator.css?v="+ASSET_VERSION;document.head.appendChild(link);}}
-  function loadCustomScript(){loadConfiguratorStyles();loadScript(CUSTOM_SCRIPT,()=>{loadScript(FIX_SCRIPT,()=>{initBasePage();setTimeout(initRestaurantsFallback,250);});});}
+  function loadCustomScript(){loadConfiguratorStyles();loadScript(CUSTOM_SCRIPT,()=>{loadScript(FIX_SCRIPT,()=>{loadScript(MENU_IMAGE_SCRIPT,()=>{initBasePage();setTimeout(initRestaurantsFallback,250);});});});}
   function loadBaseScript(){loadScript(BASE_SCRIPT,loadCustomScript);}
   loadCatalogData(loadBaseScript);
 })();
