@@ -55,7 +55,7 @@ window.RESTAURANT_DIRECTORY = [
 ];
 
 (function(){
-  const LOGO_PATH = "assets/images/fresatto-logo-clean.svg?v=20260916-7";
+  const LOGO_PATH = "assets/images/fresatto-logo-clean.svg?v=20260916-8";
 
   function isFresatto(card){
     if(!card) return false;
@@ -76,8 +76,8 @@ window.RESTAURANT_DIRECTORY = [
       img.alt = "Logo de Fresatto";
       img.decoding = "async";
       img.loading = "eager";
-      img.width = 72;
-      img.height = 72;
+      img.width = 70;
+      img.height = 70;
       card.insertBefore(img, nameButton);
     });
   }
@@ -89,7 +89,7 @@ window.RESTAURANT_DIRECTORY = [
     style.textContent = `
       .restaurant-card:has(.fresatto-card-logo){position:relative;min-height:255px}
       .restaurant-card .fresatto-card-logo{
-        position:absolute;left:25px;top:66px;width:72px!important;height:72px!important;max-width:72px!important;
+        position:absolute;left:25px;top:45px;width:70px!important;height:70px!important;max-width:70px!important;
         object-fit:contain!important;object-position:center;border-radius:50%;margin:0;
         border:1px solid rgba(255,179,0,.55);box-shadow:0 8px 20px rgba(0,0,0,.32);
         background:#050505;opacity:1!important;visibility:visible!important;z-index:1;
@@ -100,13 +100,13 @@ window.RESTAURANT_DIRECTORY = [
       .restaurant-card:has(.fresatto-card-logo) .restaurant-schedule{position:relative;z-index:2;margin-top:14px}
       @media(max-width:600px){
         .restaurant-card:has(.fresatto-card-logo){min-height:248px}
-        .restaurant-card .fresatto-card-logo{left:20px;top:60px;width:64px!important;height:64px!important;max-width:64px!important}
+        .restaurant-card .fresatto-card-logo{left:20px;top:45px;width:62px!important;height:62px!important;max-width:62px!important}
         .restaurant-card:has(.fresatto-card-logo) .restaurant-name-button{width:calc(100% - 78px);margin-left:78px;margin-top:18px;min-height:46px}
         .restaurant-card:has(.fresatto-card-logo) .restaurant-schedule{margin-top:12px}
       }
       @media(max-width:380px){
         .restaurant-card:has(.fresatto-card-logo){min-height:242px}
-        .restaurant-card .fresatto-card-logo{left:18px;top:59px;width:58px!important;height:58px!important;max-width:58px!important}
+        .restaurant-card .fresatto-card-logo{left:18px;top:44px;width:56px!important;height:56px!important;max-width:56px!important}
         .restaurant-card:has(.fresatto-card-logo) .restaurant-name-button{width:calc(100% - 70px);margin-left:70px}
       }
     `;
