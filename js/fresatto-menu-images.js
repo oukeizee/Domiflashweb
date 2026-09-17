@@ -2,7 +2,7 @@
   const FRESATTO_ID="3";
   const DISH_IMAGES={
     "Oblea Tradicional":"https://img0.didiglobal.com/static/soda_public/do1_t5UBZNJmVMkNTr23yDvt",
-    "Oblea Especial":"https://www.gettyimages.com/",
+    "Oblea Especial":"https://amazonicaofficial.com/cdn/shop/files/Screenshot2025-09-06at12.14.52PM.png?v=1757175301&width=600",
     "Oblatto":"https://img0.didiglobal.com/static/soda_public/do1_3qXIKxerAK3L9L8dpPvp",
     "ChocoFresatto":"https://www.flowerstocolombia.com/cdn/shop/files/703-46-2.jpg?v=1725482010&width=533",
     "ChocoBowl":"https://img0.didiglobal.com/static/soda_public/do1_eGu1X2khAsmUyILLNXuq",
