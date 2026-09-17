@@ -4,7 +4,7 @@
     "Oblea Tradicional":"https://img0.didiglobal.com/static/soda_public/do1_t5UBZNJmVMkNTr23yDvt",
     "Oblea Especial":"https://assets.touch2success.com/static/fb27f225da54f1fb3842cf95fe2addd4/img/1744112660phpAnQGZ3.jpg",
     "Oblatto":"https://tb-static.uber.com/prod/image-proc/processed_images/f8b1ec214eb95635b47eb7721f2826cc/268ee1a1296808aa6eae11eb597de84d.jpeg",
-    "ChocoFresatto":"https://www.pexels.com/photo/chocolate-covered-strawberries-16153969/",
+    "ChocoFresatto":"https://dashanddishes.com/assets/images/1773336357630-6qcnvsht.webp",
     "ChocoBowl":"https://cms.neugebauer.com.br/storage/recipes/1598103169-Capa.jpg",
     "Ensalada de Frutas":"https://images.deliveryhero.io/image/talabat/MenuItems/Fruit_Salad_with_Ice_Crea638772961137599074.jpg",
     "Fresas con Crema":"https://images.aws.nestle.recipes/resized/7bf7f0e6d29d285e260b0246ad22a8e6_strawberries_with_cream_new_1080_850.jpg",
