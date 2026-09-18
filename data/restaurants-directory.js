@@ -62,7 +62,7 @@ window.RESTAURANT_LOGO_POSITIONS = {
 };
 
 (function(){
-  const SPRITE = "assets/images/logos/restaurant-logos-sprite-27.jpg?v=20260918-15";
+  const SPRITE = "https://raw.githubusercontent.com/oukeizee/Domiflashweb/main/assets/images/logos/restaurant-logos-sprite-27.jpg?v=20260918-16";
 
   function addLogos(){
     document.querySelectorAll("#restaurantGrid .restaurant-card").forEach(card => {
@@ -105,7 +105,7 @@ window.RESTAURANT_LOGO_POSITIONS = {
         width:220px;
         height:220px;
         border-radius:50%;
-        background-image:url("assets/images/logos/restaurant-logos-sprite-27.jpg?v=20260918-15");
+        background-image:url("https://raw.githubusercontent.com/oukeizee/Domiflashweb/main/assets/images/logos/restaurant-logos-sprite-27.jpg?v=20260918-16");
         background-size:1000px 1200px;
         background-position:calc(var(--logo-x) * -1) calc(var(--logo-y) * -1);
         background-repeat:no-repeat;
