@@ -54,60 +54,166 @@ window.RESTAURANT_DIRECTORY = [
   { id: 27, name: "Mapple" }
 ];
 
-(function(){
-  const LOGO_PATH = "assets/images/fresatto-logo-clean.svg?v=20260916-8";
+/*
+ * Logos entregados por el cliente.
+ * Los nombres de archivo se conservan para poder sustituirlos
+ * fácilmente en el futuro sin tocar la estructura del directorio.
+ */
+window.RESTAURANT_LOGOS = {
+  1: "Junior Pizza.jpg",
+  2: "Donipanda Baeery.jpg",
+  3: "Fresatto.jpg",
+  4: "Chorizos donde Juancho.jpg",
+  5: "La Brasa China de la 40.jpg",
+  6: "Pantera.jpg",
+  7: "Panaderia Duble.jpg",
+  8: "Chica Fresa.jpg",
+  9: "Mylú.jpg",
+  10: "Mr. Chiken.jpg",
+  11: "Fruty Cream.jpg",
+  12: "Aramex.jpg",
+  13: "Pizzas Rapidas Country´s.jpg",
+  14: "Chamos Cholados.jpg",
+  15: "La Bonga.jpg",
+  16: "Espuela.jpg",
+  17: "Chalo.jpg",
+  18: "Burger City.jpg",
+  19: "Barto.jpg",
+  20: "La Magola.jpg",
+  21: "Cherramy Heladeria.jpg",
+  22: "Sabor al Barril.jpg",
+  23: "Asadero de Pollo alto la 16.jpg",
+  24: "El Camarón.jpg",
+  25: "Don Grizzly Hamburguesas.jpg",
+  26: "La Casa de la Hamburguesa.jpg",
+  27: "Mapple.jpg"
+};
 
-  function isFresatto(card){
-    if(!card) return false;
-    const id = String(card.dataset?.restaurantId || "");
-    const name = String(card.querySelector(".restaurant-name-button span")?.textContent || "").trim().toLocaleLowerCase("es");
-    const number = String(card.querySelector(".restaurant-number")?.textContent || "").trim();
-    return id === "3" || name === "fresatto" || number === "03";
+(function(){
+  const LOGO_DIR = "assets/images/logos/";
+
+  function logoUrl(id){
+    const filename = window.RESTAURANT_LOGOS?.[String(id)] || window.RESTAURANT_LOGOS?.[id];
+    return filename ? LOGO_DIR + encodeURIComponent(filename) : "";
   }
 
-  function addLogo(){
+  function addLogos(){
     document.querySelectorAll("#restaurantGrid .restaurant-card").forEach(card => {
-      if(!isFresatto(card) || card.querySelector(".fresatto-card-logo")) return;
+      const id = String(card.dataset?.restaurantId || "").trim();
+      const src = logoUrl(id);
       const nameButton = card.querySelector(".restaurant-name-button");
-      if(!nameButton) return;
-      const img = document.createElement("img");
-      img.className = "fresatto-card-logo";
-      img.src = LOGO_PATH;
-      img.alt = "Logo de Fresatto";
-      img.decoding = "async";
-      img.loading = "eager";
-      img.width = 70;
-      img.height = 70;
-      card.insertBefore(img, nameButton);
+      if(!src || !nameButton) return;
+
+      let img = card.querySelector(".restaurant-card-logo");
+      if(!img){
+        img = document.createElement("img");
+        img.className = "restaurant-card-logo";
+        img.decoding = "async";
+        img.loading = "eager";
+        img.width = 78;
+        img.height = 78;
+        card.insertBefore(img, nameButton);
+      }
+
+      if(img.src !== new URL(src, document.baseURI).href){
+        img.src = src;
+      }
+
+      const restaurant = window.RESTAURANT_DIRECTORY?.find(r => String(r.id) === id);
+      img.alt = restaurant ? `Logo de ${restaurant.name}` : "Logo del restaurante";
     });
   }
 
   function addStyles(){
-    if(document.getElementById("fresattoLogoStyles")) return;
+    if(document.getElementById("restaurantLogoStyles")) return;
     const style = document.createElement("style");
-    style.id = "fresattoLogoStyles";
+    style.id = "restaurantLogoStyles";
     style.textContent = `
-      .restaurant-card:has(.fresatto-card-logo){position:relative;min-height:255px}
-      .restaurant-card .fresatto-card-logo{
-        position:absolute;left:25px;top:45px;width:70px!important;height:70px!important;max-width:70px!important;
-        object-fit:contain!important;object-position:center;border-radius:50%;margin:0;
-        border:1px solid rgba(255,179,0,.55);box-shadow:0 8px 20px rgba(0,0,0,.32);
-        background:#050505;opacity:1!important;visibility:visible!important;z-index:1;
+      .restaurant-card:has(.restaurant-card-logo){
+        position:relative;
+        min-height:255px;
       }
-      .restaurant-card:has(.fresatto-card-logo) .restaurant-name-button{
-        width:calc(100% - 88px);margin-left:88px;margin-top:18px;min-height:52px;
+
+      .restaurant-card .restaurant-card-logo{
+        position:absolute;
+        left:25px;
+        top:45px;
+        width:78px !important;
+        height:78px !important;
+        max-width:78px !important;
+        min-width:78px !important;
+        object-fit:contain !important;
+        object-position:center;
+        border-radius:50%;
+        margin:0;
+        padding:0;
+        border:1px solid rgba(255,255,255,.42);
+        box-shadow:
+          0 0 0 2px rgba(5,5,5,.9),
+          0 8px 20px rgba(0,0,0,.38);
+        background:#050505;
+        opacity:1 !important;
+        visibility:visible !important;
+        z-index:2;
       }
-      .restaurant-card:has(.fresatto-card-logo) .restaurant-schedule{position:relative;z-index:2;margin-top:14px}
+
+      .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{
+        width:calc(100% - 98px);
+        margin-left:98px;
+        margin-top:18px;
+        min-height:52px;
+      }
+
+      .restaurant-card:has(.restaurant-card-logo) .restaurant-schedule{
+        position:relative;
+        z-index:3;
+        margin-top:14px;
+      }
+
       @media(max-width:600px){
-        .restaurant-card:has(.fresatto-card-logo){min-height:248px}
-        .restaurant-card .fresatto-card-logo{left:20px;top:45px;width:62px!important;height:62px!important;max-width:62px!important}
-        .restaurant-card:has(.fresatto-card-logo) .restaurant-name-button{width:calc(100% - 78px);margin-left:78px;margin-top:18px;min-height:46px}
-        .restaurant-card:has(.fresatto-card-logo) .restaurant-schedule{margin-top:12px}
+        .restaurant-card:has(.restaurant-card-logo){
+          min-height:248px;
+        }
+
+        .restaurant-card .restaurant-card-logo{
+          left:20px;
+          top:45px;
+          width:68px !important;
+          height:68px !important;
+          max-width:68px !important;
+          min-width:68px !important;
+        }
+
+        .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{
+          width:calc(100% - 86px);
+          margin-left:86px;
+          margin-top:18px;
+          min-height:46px;
+        }
+
+        .restaurant-card:has(.restaurant-card-logo) .restaurant-schedule{
+          margin-top:12px;
+        }
       }
+
       @media(max-width:380px){
-        .restaurant-card:has(.fresatto-card-logo){min-height:242px}
-        .restaurant-card .fresatto-card-logo{left:18px;top:44px;width:56px!important;height:56px!important;max-width:56px!important}
-        .restaurant-card:has(.fresatto-card-logo) .restaurant-name-button{width:calc(100% - 70px);margin-left:70px}
+        .restaurant-card:has(.restaurant-card-logo){
+          min-height:242px;
+        }
+
+        .restaurant-card .restaurant-card-logo{
+          left:18px;
+          top:44px;
+          width:60px !important;
+          height:60px !important;
+          max-width:60px !important;
+          min-width:60px !important;
+        }
+
+        .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{
+          width:calc(100% - 76px);
+          margin-left:76px;
+        }
       }
     `;
     document.head.appendChild(style);
@@ -115,14 +221,18 @@ window.RESTAURANT_DIRECTORY = [
 
   function init(){
     addStyles();
-    addLogo();
+    addLogos();
+
     const grid = document.getElementById("restaurantGrid");
-    if(grid && !grid.dataset.fresattoLogoObserver){
-      grid.dataset.fresattoLogoObserver = "1";
-      new MutationObserver(addLogo).observe(grid,{childList:true,subtree:true});
+    if(grid && !grid.dataset.restaurantLogoObserver){
+      grid.dataset.restaurantLogoObserver = "1";
+      new MutationObserver(addLogos).observe(grid,{childList:true,subtree:true});
     }
   }
 
-  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded",init,{once:true});
-  else init();
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded",init,{once:true});
+  } else {
+    init();
+  }
 })();
