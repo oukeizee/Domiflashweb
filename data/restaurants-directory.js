@@ -1,12 +1,5 @@
 /* =========================================
    DIRECTORIO PÚBLICO DE RESTAURANTES
-   -----------------------------------------
-   Este archivo pertenece ÚNICAMENTE a la página
-   "Restaurantes".
-
-   No contiene las cartas ni los productos.
-   La página "Arma tu pedido" utiliza su propio
-   catálogo completo en data/restaurants.js.
    ========================================= */
 
 window.RESTAURANT_DIRECTORY_SCHEDULE = {
@@ -54,38 +47,38 @@ window.RESTAURANT_DIRECTORY = [
   { id: 27, name: "Mapple" }
 ];
 
-
-/* Logos de restaurantes suministrados por Domiflash.
-   Se usa un sprite optimizado para mantener el sitio liviano.
-   Fresatto conserva su logo original y su implementación original. */
+/*
+  Sprite completo de los logos suministrados.
+  5 columnas x 6 filas, 70 px por tarjeta en pantalla.
+  El orden corresponde al ID del directorio (1..27).
+*/
 window.RESTAURANT_LOGO_POSITIONS = {
-  6:[0,0],   // Pantera
-  27:[1,0],  // Mapple
-  25:[2,0],  // Don Grizzly
-  26:[3,0],  // La Casa de la Hamburguesa
-  24:[4,0],  // El Camarón
-  23:[0,1],  // Asadero de Pollo alto la 16
-  21:[1,1],  // Cherramy Heladería
-  12:[2,1],  // Aramex
-  20:[3,1],  // La Magola
-  8:[4,1]    // Chica Fresa
+  1:[0,0], 2:[1,0], 3:[2,0], 4:[3,0], 5:[4,0],
+  6:[0,1], 7:[1,1], 8:[2,1], 9:[3,1], 10:[4,1],
+  11:[0,2], 12:[1,2], 13:[2,2], 14:[3,2], 15:[4,2],
+  16:[0,3], 17:[1,3], 18:[2,3], 19:[3,3], 20:[4,3],
+  21:[0,4], 22:[1,4], 23:[2,4], 24:[3,4], 25:[4,4],
+  26:[0,5], 27:[1,5]
 };
 
 (function(){
-  const SPRITE = "assets/images/logos/restaurant-logos-sprite.jpg?v=20260918-4";
+  const SPRITE = "assets/images/logos/restaurant-logos-sprite-27.jpg?v=20260918-5";
+
   function addLogos(){
     document.querySelectorAll("#restaurantGrid .restaurant-card").forEach(card => {
       const id = String(card.dataset?.restaurantId || "").trim();
       if(id === "3" || card.querySelector(".restaurant-card-logo")) return;
-      const position = window.RESTAURANT_LOGO_POSITIONS?.[id] || window.RESTAURANT_LOGO_POSITIONS?.[Number(id)];
+
+      const position = window.RESTAURANT_LOGO_POSITIONS?.[id];
       const nameButton = card.querySelector(".restaurant-name-button");
       if(!position || !nameButton) return;
+
       const logo = document.createElement("span");
       logo.className = "restaurant-card-logo";
       logo.setAttribute("role","img");
       logo.setAttribute("aria-label","Logo del restaurante");
       logo.style.backgroundImage = `url("${SPRITE}")`;
-      logo.style.backgroundSize = "350px 140px";
+      logo.style.backgroundSize = "350px 420px";
       logo.style.backgroundPosition = `-${position[0] * 70}px -${position[1] * 70}px`;
       logo.style.backgroundRepeat = "no-repeat";
       card.insertBefore(logo, nameButton);
@@ -97,37 +90,74 @@ window.RESTAURANT_LOGO_POSITIONS = {
     const style = document.createElement("style");
     style.id = "restaurantLogoStyles";
     style.textContent = `
-      .restaurant-card:has(.restaurant-card-logo){position:relative;min-height:255px}
+      .restaurant-card:has(.restaurant-card-logo){
+        position:relative;
+        min-height:255px;
+      }
       .restaurant-card .restaurant-card-logo{
-        position:absolute;left:25px;top:45px;width:70px!important;height:70px!important;
-        display:block;max-width:70px!important;min-width:70px!important;
-        background-size:350px 140px;
-        background-repeat:no-repeat;
-        background-position:calc(var(--logo-col) * -70px) calc(var(--logo-row) * -70px);
-        object-fit:cover;
-        border-radius:50%;
+        position:absolute;
+        left:25px;
+        top:45px;
+        width:70px!important;
+        height:70px!important;
+        min-width:70px!important;
+        max-width:70px!important;
+        display:block;
         margin:0;
+        border-radius:50%;
         border:1px solid rgba(255,179,0,.55);
         box-shadow:0 8px 20px rgba(0,0,0,.32);
         background-color:#050505;
+        background-repeat:no-repeat;
         opacity:1!important;
         visibility:visible!important;
-        z-index:1;
+        z-index:3;
       }
       .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{
-        width:calc(100% - 88px);margin-left:88px;margin-top:18px;min-height:52px;
+        width:calc(100% - 88px);
+        margin-left:88px;
+        margin-top:18px;
+        min-height:52px;
       }
-      .restaurant-card:has(.restaurant-card-logo) .restaurant-schedule{position:relative;z-index:2;margin-top:14px}
+      .restaurant-card:has(.restaurant-card-logo) .restaurant-schedule{
+        position:relative;
+        z-index:2;
+        margin-top:14px;
+      }
       @media(max-width:600px){
         .restaurant-card:has(.restaurant-card-logo){min-height:248px}
-        .restaurant-card .restaurant-card-logo{left:20px;top:45px;width:62px!important;height:62px!important;max-width:62px!important;min-width:62px!important;background-size:310px 124px;background-position:calc(var(--logo-col) * -62px) calc(var(--logo-row) * -62px)}
-        .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{width:calc(100% - 78px);margin-left:78px;margin-top:18px;min-height:46px}
+        .restaurant-card .restaurant-card-logo{
+          left:20px;
+          top:45px;
+          width:62px!important;
+          height:62px!important;
+          min-width:62px!important;
+          max-width:62px!important;
+          background-size:310px 372px;
+        }
+        .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{
+          width:calc(100% - 78px);
+          margin-left:78px;
+          margin-top:18px;
+          min-height:46px;
+        }
         .restaurant-card:has(.restaurant-card-logo) .restaurant-schedule{margin-top:12px}
       }
       @media(max-width:380px){
         .restaurant-card:has(.restaurant-card-logo){min-height:242px}
-        .restaurant-card .restaurant-card-logo{left:18px;top:44px;width:56px!important;height:56px!important;max-width:56px!important;min-width:56px!important;background-size:280px 112px;background-position:calc(var(--logo-col) * -56px) calc(var(--logo-row) * -56px)}
-        .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{width:calc(100% - 70px);margin-left:70px}
+        .restaurant-card .restaurant-card-logo{
+          left:18px;
+          top:44px;
+          width:56px!important;
+          height:56px!important;
+          min-width:56px!important;
+          max-width:56px!important;
+          background-size:280px 336px;
+        }
+        .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{
+          width:calc(100% - 70px);
+          margin-left:70px;
+        }
       }
     `;
     document.head.appendChild(style);
@@ -136,6 +166,7 @@ window.RESTAURANT_LOGO_POSITIONS = {
   function init(){
     addStyles();
     addLogos();
+
     const grid = document.getElementById("restaurantGrid");
     if(grid && !grid.dataset.restaurantLogoObserver){
       grid.dataset.restaurantLogoObserver = "1";
@@ -147,6 +178,7 @@ window.RESTAURANT_LOGO_POSITIONS = {
   else init();
 })();
 
+/* Fresatto mantiene su logo original, con el mismo layout visual. */
 (function(){
   const LOGO_PATH = "assets/images/fresatto-logo-clean.svg?v=20260916-8";
 
@@ -163,6 +195,7 @@ window.RESTAURANT_LOGO_POSITIONS = {
       if(!isFresatto(card) || card.querySelector(".fresatto-card-logo")) return;
       const nameButton = card.querySelector(".restaurant-name-button");
       if(!nameButton) return;
+
       const img = document.createElement("img");
       img.className = "fresatto-card-logo";
       img.src = LOGO_PATH;
@@ -182,10 +215,12 @@ window.RESTAURANT_LOGO_POSITIONS = {
     style.textContent = `
       .restaurant-card:has(.fresatto-card-logo){position:relative;min-height:255px}
       .restaurant-card .fresatto-card-logo{
-        position:absolute;left:25px;top:45px;width:70px!important;height:70px!important;max-width:70px!important;
+        position:absolute;left:25px;top:45px;
+        width:70px!important;height:70px!important;max-width:70px!important;
         object-fit:contain!important;object-position:center;border-radius:50%;margin:0;
-        border:1px solid rgba(255,179,0,.55);box-shadow:0 8px 20px rgba(0,0,0,.32);
-        background:#050505;opacity:1!important;visibility:visible!important;z-index:1;
+        border:1px solid rgba(255,179,0,.55);
+        box-shadow:0 8px 20px rgba(0,0,0,.32);
+        background:#050505;opacity:1!important;visibility:visible!important;z-index:3;
       }
       .restaurant-card:has(.fresatto-card-logo) .restaurant-name-button{
         width:calc(100% - 88px);margin-left:88px;margin-top:18px;min-height:52px;
