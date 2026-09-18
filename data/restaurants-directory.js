@@ -109,8 +109,8 @@ window.RESTAURANT_LOGO_POSITIONS = {
         background-size:1000px 1200px;
         background-position:calc(var(--logo-x) * -1px) calc(var(--logo-y) * -1px);
         background-repeat:no-repeat;
-        opacity:.14;
-        filter:grayscale(1);
+        opacity:.16;
+        filter:saturate(.85);
         pointer-events:none;
         z-index:0;
       }
