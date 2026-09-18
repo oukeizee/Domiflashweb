@@ -52,7 +52,7 @@ function renderRestaurants(filter = "") {
     return;
   }
   grid.innerHTML = list.map((r, index) => `
-    <article class="restaurant-card reveal" data-restaurant-id="${String(r.id)}" style="animation-delay:${Math.min(index * 0.025, 0.35)}s">
+    <article class="restaurant-card reveal has-restaurant-watermark" data-restaurant-id="${String(r.id)}" style="--logo-x:${((Number(r.id)-1)%5)*200}px;--logo-y:${Math.floor((Number(r.id)-1)/5)*200}px;animation-delay:${Math.min(index * 0.025, 0.35)}s">
       <div><span class="restaurant-number">${String(r.id).padStart(2, "0")}</span></div>
       ${String(r.id)==="3" ? "" : `<span class="restaurant-card-logo" role="img" aria-label="Logo del restaurante" style="background-image:url('https://raw.githubusercontent.com/oukeizee/Domiflashweb/main/assets/images/logos/restaurant-logos-sprite-27.jpg?v=20260918-11');background-size:350px 420px;background-position:-${((Number(r.id)-1)%5)*70}px -${Math.floor((Number(r.id)-1)/5)*70}px;background-repeat:no-repeat;"></span>`}
       <button class="restaurant-name-button" type="button" onclick="window.location.href='restaurante.html?id=${encodeURIComponent(r.id)}'">
