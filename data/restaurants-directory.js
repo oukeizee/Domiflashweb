@@ -100,7 +100,7 @@ window.RESTAURANT_LOGO_POSITIONS = {
       .restaurant-card .restaurant-card-logo{
         position:absolute;left:25px;top:45px;width:70px!important;height:70px!important;
         display:block;max-width:70px!important;min-width:70px!important;
-        background-size:420px 350px;
+        background-size:350px 140px;
         background-repeat:no-repeat;
         background-position:calc(var(--logo-col) * -70px) calc(var(--logo-row) * -70px);
         object-fit:cover;
@@ -119,13 +119,13 @@ window.RESTAURANT_LOGO_POSITIONS = {
       .restaurant-card:has(.restaurant-card-logo) .restaurant-schedule{position:relative;z-index:2;margin-top:14px}
       @media(max-width:600px){
         .restaurant-card:has(.restaurant-card-logo){min-height:248px}
-        .restaurant-card .restaurant-card-logo{left:20px;top:45px;width:62px!important;height:62px!important;max-width:62px!important;min-width:62px!important;background-size:372px 310px;background-position:calc(var(--logo-col) * -62px) calc(var(--logo-row) * -62px)}
+        .restaurant-card .restaurant-card-logo{left:20px;top:45px;width:62px!important;height:62px!important;max-width:62px!important;min-width:62px!important;background-size:310px 124px;background-position:calc(var(--logo-col) * -62px) calc(var(--logo-row) * -62px)}
         .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{width:calc(100% - 78px);margin-left:78px;margin-top:18px;min-height:46px}
         .restaurant-card:has(.restaurant-card-logo) .restaurant-schedule{margin-top:12px}
       }
       @media(max-width:380px){
         .restaurant-card:has(.restaurant-card-logo){min-height:242px}
-        .restaurant-card .restaurant-card-logo{left:18px;top:44px;width:56px!important;height:56px!important;max-width:56px!important;min-width:56px!important;background-size:336px 280px;background-position:calc(var(--logo-col) * -56px) calc(var(--logo-row) * -56px)}
+        .restaurant-card .restaurant-card-logo{left:18px;top:44px;width:56px!important;height:56px!important;max-width:56px!important;min-width:56px!important;background-size:280px 112px;background-position:calc(var(--logo-col) * -56px) calc(var(--logo-row) * -56px)}
         .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{width:calc(100% - 70px);margin-left:70px}
       }
     `;
