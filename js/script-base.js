@@ -52,7 +52,7 @@ function renderRestaurants(filter = "") {
     return;
   }
   grid.innerHTML = list.map((r, index) => `
-    <article class="restaurant-card reveal has-restaurant-watermark" data-restaurant-id="${String(r.id)}" style="--logo-url:${String(r.id)==="3" ? "none" : `url("${window.getRestaurantLogoDataUri?.(r.id) || window.RESTAURANT_LOGO_DATA_URI}")`};animation-delay:${Math.min(index * 0.025, 0.35)}s">
+    <article class="restaurant-card reveal has-restaurant-watermark" data-restaurant-id="${String(r.id)}" style="--logo-url:${String(r.id)==="3" ? `url("assets/images/fresatto-logo-clean.svg?v=20260916-8")` : `url("${window.getRestaurantLogoDataUri?.(r.id) || window.RESTAURANT_LOGO_DATA_URI}")`};animation-delay:${Math.min(index * 0.025, 0.35)}s">
       <div><span class="restaurant-number">${String(r.id).padStart(2, "0")}</span></div>
       ${String(r.id)==="3" ? "" : `<span class="restaurant-card-logo" role="img" aria-label="Logo del restaurante" style="background-image:url("${window.getRestaurantLogoDataUri?.(r.id) || window.RESTAURANT_LOGO_DATA_URI}");background-size:cover;background-position:center;background-repeat:no-repeat;"></span>`}
       <button class="restaurant-name-button" type="button" onclick="window.location.href='restaurante.html?id=${encodeURIComponent(r.id)}'">
