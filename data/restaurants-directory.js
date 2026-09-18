@@ -62,7 +62,7 @@ window.RESTAURANT_LOGO_POSITIONS = {
 };
 
 (function(){
-  const SPRITE = "assets/images/logos/https://raw.githubusercontent.com/oukeizee/Domiflashweb/main/assets/images/logos/restaurant-logos-sprite-27.jpg?v=20260918-10";
+  const SPRITE = "https://raw.githubusercontent.com/oukeizee/Domiflashweb/main/assets/images/logos/restaurant-logos-sprite-27.jpg?v=20260918-11";
 
   function addLogos(){
     document.querySelectorAll("#restaurantGrid .restaurant-card").forEach(card => {
@@ -81,6 +81,9 @@ window.RESTAURANT_LOGO_POSITIONS = {
       logo.style.backgroundSize = "350px 420px";
       logo.style.backgroundPosition = `-${position[0] * 70}px -${position[1] * 70}px`;
       logo.style.backgroundRepeat = "no-repeat";
+      card.style.setProperty("--logo-x", String(position[0] * 200));
+      card.style.setProperty("--logo-y", String(position[1] * 200));
+      card.classList.add("has-restaurant-watermark");
       card.insertBefore(logo, nameButton);
     });
   }
@@ -93,6 +96,23 @@ window.RESTAURANT_LOGO_POSITIONS = {
       .restaurant-card:has(.restaurant-card-logo){
         position:relative;
         min-height:255px;
+      }
+      .restaurant-card.has-restaurant-watermark::before{
+        content:"";
+        position:absolute;
+        right:18px;
+        top:28px;
+        width:220px;
+        height:220px;
+        border-radius:50%;
+        background-image:url("https://raw.githubusercontent.com/oukeizee/Domiflashweb/main/assets/images/logos/restaurant-logos-sprite-27.jpg?v=20260918-11");
+        background-size:1000px 1200px;
+        background-position:calc(var(--logo-x) * -1px) calc(var(--logo-y) * -1px);
+        background-repeat:no-repeat;
+        opacity:.14;
+        filter:grayscale(1);
+        pointer-events:none;
+        z-index:0;
       }
       .restaurant-card .restaurant-card-logo{
         position:absolute;
@@ -113,6 +133,7 @@ window.RESTAURANT_LOGO_POSITIONS = {
         visibility:visible!important;
         z-index:3;
       }
+      .restaurant-card.has-restaurant-watermark > *{position:relative;z-index:1}
       .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{
         width:calc(100% - 88px);
         margin-left:88px;
