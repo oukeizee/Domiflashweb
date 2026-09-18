@@ -54,7 +54,7 @@ function renderRestaurants(filter = "") {
   grid.innerHTML = list.map((r, index) => `
     <article class="restaurant-card reveal has-restaurant-watermark" data-restaurant-id="${String(r.id)}" style="--logo-x:${((Number(r.id)-1)%5)*200}px;--logo-y:${Math.floor((Number(r.id)-1)/5)*200}px;animation-delay:${Math.min(index * 0.025, 0.35)}s">
       <div><span class="restaurant-number">${String(r.id).padStart(2, "0")}</span></div>
-      ${String(r.id)==="3" ? "" : `<span class="restaurant-card-logo" role="img" aria-label="Logo del restaurante" style="background-image:url('https://raw.githubusercontent.com/oukeizee/Domiflashweb/main/assets/images/logos/restaurant-logos-sprite-27.jpg?v=20260918-11');background-size:350px 420px;background-position:-${((Number(r.id)-1)%5)*70}px -${Math.floor((Number(r.id)-1)/5)*70}px;background-repeat:no-repeat;"></span>`}
+      ${String(r.id)==="3" ? "" : `<span class="restaurant-card-logo" role="img" aria-label="Logo del restaurante" style="background-image:url('https://raw.githubusercontent.com/oukeizee/Domiflashweb/main/assets/images/logos/restaurant-logos-sprite-27.jpg?v=20260918-11');background-size:500px 600px;background-position:-${((Number(r.id)-1)%5)*100}px -${Math.floor((Number(r.id)-1)/5)*100}px;background-repeat:no-repeat;"></span>`}
       <button class="restaurant-name-button" type="button" onclick="window.location.href='restaurante.html?id=${encodeURIComponent(r.id)}'">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v7M3.5 3v5a2.5 2.5 0 0 0 5 0V3M6 10.5V21M17 3v18M17 3c2.2 1.7 3.5 4.2 3.5 7v1H17"/></svg><span>${escapeHtml(r.name)}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
       </button>
