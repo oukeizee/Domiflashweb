@@ -72,7 +72,7 @@ window.RESTAURANT_LOGO_POSITIONS = {
 };
 
 (function(){
-  const SPRITE = "assets/images/logos/restaurant-logos-sprite.jpg?v=20260918-2";
+  const SPRITE = "assets/images/logos/restaurant-logos-sprite.jpg?v=20260918-4";
   function addLogos(){
     document.querySelectorAll("#restaurantGrid .restaurant-card").forEach(card => {
       const id = String(card.dataset?.restaurantId || "").trim();
@@ -84,9 +84,10 @@ window.RESTAURANT_LOGO_POSITIONS = {
       logo.className = "restaurant-card-logo";
       logo.setAttribute("role","img");
       logo.setAttribute("aria-label","Logo del restaurante");
-      logo.style.setProperty("--logo-col", String(position[0]));
-      logo.style.setProperty("--logo-row", String(position[1]));
       logo.style.backgroundImage = `url("${SPRITE}")`;
+      logo.style.backgroundSize = "350px 140px";
+      logo.style.backgroundPosition = `-${position[0] * 70}px -${position[1] * 70}px`;
+      logo.style.backgroundRepeat = "no-repeat";
       card.insertBefore(logo, nameButton);
     });
   }
