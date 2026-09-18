@@ -72,7 +72,7 @@ window.RESTAURANT_LOGO_POSITIONS = {
 };
 
 (function(){
-  const SPRITE = "assets/images/logos/restaurant-logos-sprite.jpg";
+  const SPRITE = "assets/images/logos/restaurant-logos-sprite.jpg?v=20260918-2";
   function addLogos(){
     document.querySelectorAll("#restaurantGrid .restaurant-card").forEach(card => {
       const id = String(card.dataset?.restaurantId || "").trim();
