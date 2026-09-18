@@ -78,8 +78,8 @@ window.RESTAURANT_LOGO_POSITIONS = {
       logo.setAttribute("role","img");
       logo.setAttribute("aria-label","Logo del restaurante");
       logo.style.backgroundImage = `url("${SPRITE}")`;
-      logo.style.backgroundSize = "350px 420px";
-      logo.style.backgroundPosition = `-${position[0] * 70}px -${position[1] * 70}px`;
+      logo.style.backgroundSize = "500px 600px";
+      logo.style.backgroundPosition = `-${position[0] * 100}px -${position[1] * 100}px`;
       logo.style.backgroundRepeat = "no-repeat";
       card.style.setProperty("--logo-x", String(position[0] * 200));
       card.style.setProperty("--logo-y", String(position[1] * 200));
