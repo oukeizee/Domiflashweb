@@ -59,11 +59,16 @@ window.RESTAURANT_DIRECTORY = [
    Se usa un sprite optimizado para mantener el sitio liviano.
    Fresatto conserva su logo original y su implementación original. */
 window.RESTAURANT_LOGO_POSITIONS = {
-  1:[0,0], 2:[1,0], 4:[2,0], 5:[3,0], 6:[4,0], 7:[5,0],
-  8:[0,1], 9:[1,1], 10:[2,1], 11:[3,1], 12:[4,1], 13:[5,1],
-  14:[0,2], 15:[1,2], 16:[2,2], 17:[3,2], 18:[4,2], 19:[5,2],
-  20:[0,3], 21:[1,3], 22:[2,3], 23:[3,3], 24:[4,3], 25:[5,3],
-  26:[0,4], 27:[1,4]
+  6:[0,0],   // Pantera
+  27:[1,0],  // Mapple
+  25:[2,0],  // Don Grizzly
+  26:[3,0],  // La Casa de la Hamburguesa
+  24:[4,0],  // El Camarón
+  23:[0,1],  // Asadero de Pollo alto la 16
+  21:[1,1],  // Cherramy Heladería
+  12:[2,1],  // Aramex
+  20:[3,1],  // La Magola
+  8:[4,1]    // Chica Fresa
 };
 
 (function(){
