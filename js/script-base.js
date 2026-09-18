@@ -52,7 +52,7 @@ function renderRestaurants(filter = "") {
     return;
   }
   grid.innerHTML = list.map((r, index) => `
-    <article class="restaurant-card reveal" style="animation-delay:${Math.min(index * 0.025, 0.35)}s">
+    <article class="restaurant-card reveal" data-restaurant-id="${String(r.id)}" style="animation-delay:${Math.min(index * 0.025, 0.35)}s">
       <div><span class="restaurant-number">${String(r.id).padStart(2, "0")}</span></div>
       <button class="restaurant-name-button" type="button" onclick="window.location.href='restaurante.html?id=${encodeURIComponent(r.id)}'">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v7M3.5 3v5a2.5 2.5 0 0 0 5 0V3M6 10.5V21M17 3v18M17 3c2.2 1.7 3.5 4.2 3.5 7v1H17"/></svg><span>${escapeHtml(r.name)}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
