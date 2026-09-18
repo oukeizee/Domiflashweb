@@ -65,6 +65,15 @@ window.RESTAURANT_LOGO_POSITIONS = {
 (function(){
   const SPRITE = window.RESTAURANT_LOGO_DATA_URI;
 
+  window.getRestaurantLogoDataUri = function(id){
+    const position = window.RESTAURANT_LOGO_POSITIONS?.[String(id)];
+    if(!position) return SPRITE;
+    const x = position[0] * 100;
+    const y = position[1] * 100;
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + x + ' ' + y + ' 100 100" width="100" height="100"><image href="' + SPRITE + '" x="0" y="0" width="500" height="600"/></svg>';
+    return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+  };
+
   function addLogos(){
     document.querySelectorAll("#restaurantGrid .restaurant-card").forEach(card => {
       const id = String(card.dataset?.restaurantId || "").trim();
@@ -107,11 +116,11 @@ window.RESTAURANT_LOGO_POSITIONS = {
         height:220px;
         border-radius:50%;
         background-image:url("${window.RESTAURANT_LOGO_DATA_URI}");
-        background-size:1000px 1200px;
-        background-position:calc(var(--logo-x) * -1) calc(var(--logo-y) * -1);
+        background-size:cover;
+        background-position:center;
         background-repeat:no-repeat;
-        opacity:.16;
-        filter:saturate(.85);
+        opacity:.18;
+        filter:saturate(.9) blur(1px);
         pointer-events:none;
         z-index:0;
       }
@@ -135,6 +144,12 @@ window.RESTAURANT_LOGO_POSITIONS = {
         z-index:3;
       }
       .restaurant-card.has-restaurant-watermark > *{position:relative;z-index:1}
+
+      .restaurant-card.has-restaurant-watermark{overflow:hidden;}
+      .restaurant-card.has-restaurant-watermark::after{
+        content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;
+        background:linear-gradient(90deg,rgba(5,5,5,.48) 0%,rgba(5,5,5,.16) 45%,rgba(5,5,5,.42) 100%),linear-gradient(180deg,rgba(5,5,5,.18),rgba(5,5,5,.46));
+      }
       .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{
         width:calc(100% - 88px);
         margin-left:88px;
