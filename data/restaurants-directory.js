@@ -113,7 +113,7 @@ window.RESTAURANT_LOGO_POSITIONS = {
         inset:0;
         width:100%;
         height:100%;
-        border-radius:50%;
+        border-radius:inherit;
         background-image:var(--logo-url);
         background-size:cover;
         background-position:center;
