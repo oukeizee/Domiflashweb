@@ -2,7 +2,7 @@
   const BASE_SCRIPT="js/script-base.js";
   const CUSTOM_SCRIPT="js/product-configurator.js";
   const FIX_SCRIPT="js/fresatto-configurator-fix.js";
-  const ASSET_VERSION="20260918-15";
+  const ASSET_VERSION="20260918-16";
   const OPEN_HOUR=10;
   const CLOSE_HOUR=22;
   const FRESATTO_NAME="Fresatto";
