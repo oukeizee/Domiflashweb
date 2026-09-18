@@ -113,3 +113,12 @@
   .schedule-days{gap:5px}
   .schedule-day{width:26px;height:26px}
 }
+
+
+/* Logos visibles del directorio de restaurantes */
+.restaurant-card:has(.restaurant-card-logo){position:relative;min-height:255px}
+.restaurant-card .restaurant-card-logo{position:absolute;left:25px;top:45px;width:70px!important;height:70px!important;min-width:70px!important;max-width:70px!important;display:block;margin:0;border-radius:50%;border:1px solid rgba(255,179,0,.55);box-shadow:0 8px 20px rgba(0,0,0,.32);background-color:#050505;background-repeat:no-repeat;opacity:1!important;visibility:visible!important;z-index:3}
+.restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{width:calc(100% - 88px);margin-left:88px;margin-top:18px;min-height:52px}
+.restaurant-card:has(.restaurant-card-logo) .restaurant-schedule{position:relative;z-index:2;margin-top:14px}
+@media(max-width:600px){.restaurant-card:has(.restaurant-card-logo){min-height:248px}.restaurant-card .restaurant-card-logo{left:20px;top:45px;width:62px!important;height:62px!important;min-width:62px!important;max-width:62px!important;background-size:443px 531.6px;background-position:calc(var(--logo-x, 0px) * .886) calc(var(--logo-y, 0px) * .886)}.restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{width:calc(100% - 78px);margin-left:78px;margin-top:18px;min-height:46px}.restaurant-card:has(.restaurant-card-logo) .restaurant-schedule{margin-top:12px}}
+@media(max-width:380px){.restaurant-card:has(.restaurant-card-logo){min-height:242px}.restaurant-card .restaurant-card-logo{left:18px;top:44px;width:56px!important;height:56px!important;min-width:56px!important;max-width:56px!important;background-size:400px 480px}.restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{width:calc(100% - 70px);margin-left:70px}}
