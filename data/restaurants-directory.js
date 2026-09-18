@@ -115,7 +115,7 @@ window.RESTAURANT_LOGO_POSITIONS = {
         width:220px;
         height:220px;
         border-radius:50%;
-        background-image:url("${window.RESTAURANT_LOGO_DATA_URI}");
+        background-image:var(--logo-url);
         background-size:cover;
         background-position:center;
         background-repeat:no-repeat;
