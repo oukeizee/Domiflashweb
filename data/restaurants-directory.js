@@ -56,46 +56,36 @@ window.RESTAURANT_DIRECTORY = [
 
 
 /* Logos de restaurantes suministrados por Domiflash.
-   Fresatto conserva su implementación original más abajo. */
-window.RESTAURANT_LOGOS = {
-  1: "01.jpg", 2: "02.jpg", 4: "04.jpg", 5: "05.jpg", 6: "06.jpg",
-  7: "07.jpg", 8: "08.jpg", 9: "09.jpg", 10: "10.jpg", 11: "11.jpg",
-  12: "12.jpg", 13: "13.jpg", 14: "14.jpg", 15: "15.jpg", 16: "16.jpg",
-  17: "17.jpg", 18: "18.jpg", 19: "19.jpg", 20: "20.jpg", 21: "21.jpg",
-  22: "22.jpg", 23: "23.jpg", 24: "24.jpg", 25: "25.jpg", 26: "26.jpg",
-  27: "27.jpg"
+   Se usa un sprite optimizado para mantener el sitio liviano.
+   Fresatto conserva su logo original y su implementación original. */
+window.RESTAURANT_LOGO_POSITIONS = {
+  1:[0,0], 2:[1,0], 4:[2,0], 5:[3,0], 6:[4,0], 7:[5,0],
+  8:[0,1], 9:[1,1], 10:[2,1], 11:[3,1], 12:[4,1], 13:[5,1],
+  14:[0,2], 15:[1,2], 16:[2,2], 17:[3,2], 18:[4,2], 19:[5,2],
+  20:[0,3], 21:[1,3], 22:[2,3], 23:[3,3], 24:[4,3], 25:[5,3],
+  26:[0,4], 27:[1,4]
 };
 
 (function(){
-  const LOGO_DIR = "assets/images/logos/";
-  function logoUrl(id){
-    const filename = window.RESTAURANT_LOGOS?.[String(id)] || window.RESTAURANT_LOGOS?.[id];
-    return filename ? LOGO_DIR + filename : "";
-  }
-  function isFresatto(card){
-    const id = String(card?.dataset?.restaurantId || "").trim();
-    const name = String(card?.querySelector(".restaurant-name-button span")?.textContent || "").trim().toLocaleLowerCase("es");
-    const number = String(card?.querySelector(".restaurant-number")?.textContent || "").trim();
-    return id === "3" || name === "fresatto" || number === "03";
-  }
+  const SPRITE = "assets/images/logos/restaurant-logos-sprite.jpg";
   function addLogos(){
     document.querySelectorAll("#restaurantGrid .restaurant-card").forEach(card => {
-      if(isFresatto(card) || card.querySelector(".restaurant-card-logo")) return;
-      const nameButton = card.querySelector(".restaurant-name-button");
       const id = String(card.dataset?.restaurantId || "").trim();
-      const src = logoUrl(id);
-      if(!nameButton || !src) return;
-      const img = document.createElement("img");
-      img.className = "restaurant-card-logo";
-      img.src = src;
-      img.alt = "Logo del restaurante";
-      img.decoding = "async";
-      img.loading = "eager";
-      img.width = 70;
-      img.height = 70;
-      card.insertBefore(img, nameButton);
+      if(id === "3" || card.querySelector(".restaurant-card-logo")) return;
+      const position = window.RESTAURANT_LOGO_POSITIONS?.[id] || window.RESTAURANT_LOGO_POSITIONS?.[Number(id)];
+      const nameButton = card.querySelector(".restaurant-name-button");
+      if(!position || !nameButton) return;
+      const logo = document.createElement("span");
+      logo.className = "restaurant-card-logo";
+      logo.setAttribute("role","img");
+      logo.setAttribute("aria-label","Logo del restaurante");
+      logo.style.setProperty("--logo-col", String(position[0]));
+      logo.style.setProperty("--logo-row", String(position[1]));
+      logo.style.backgroundImage = `url("${SPRITE}")`;
+      card.insertBefore(logo, nameButton);
     });
   }
+
   function addStyles(){
     if(document.getElementById("restaurantLogoStyles")) return;
     const style = document.createElement("style");
@@ -103,10 +93,20 @@ window.RESTAURANT_LOGOS = {
     style.textContent = `
       .restaurant-card:has(.restaurant-card-logo){position:relative;min-height:255px}
       .restaurant-card .restaurant-card-logo{
-        position:absolute;left:25px;top:45px;width:70px!important;height:70px!important;max-width:70px!important;
-        object-fit:contain!important;object-position:center;border-radius:50%;margin:0;
-        border:1px solid rgba(255,179,0,.55);box-shadow:0 8px 20px rgba(0,0,0,.32);
-        background:#050505;opacity:1!important;visibility:visible!important;z-index:1;
+        position:absolute;left:25px;top:45px;width:70px!important;height:70px!important;
+        display:block;max-width:70px!important;min-width:70px!important;
+        background-size:420px 350px;
+        background-repeat:no-repeat;
+        background-position:calc(var(--logo-col) * -70px) calc(var(--logo-row) * -70px);
+        object-fit:cover;
+        border-radius:50%;
+        margin:0;
+        border:1px solid rgba(255,179,0,.55);
+        box-shadow:0 8px 20px rgba(0,0,0,.32);
+        background-color:#050505;
+        opacity:1!important;
+        visibility:visible!important;
+        z-index:1;
       }
       .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{
         width:calc(100% - 88px);margin-left:88px;margin-top:18px;min-height:52px;
@@ -114,18 +114,19 @@ window.RESTAURANT_LOGOS = {
       .restaurant-card:has(.restaurant-card-logo) .restaurant-schedule{position:relative;z-index:2;margin-top:14px}
       @media(max-width:600px){
         .restaurant-card:has(.restaurant-card-logo){min-height:248px}
-        .restaurant-card .restaurant-card-logo{left:20px;top:45px;width:62px!important;height:62px!important;max-width:62px!important}
+        .restaurant-card .restaurant-card-logo{left:20px;top:45px;width:62px!important;height:62px!important;max-width:62px!important;min-width:62px!important;background-size:372px 310px;background-position:calc(var(--logo-col) * -62px) calc(var(--logo-row) * -62px)}
         .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{width:calc(100% - 78px);margin-left:78px;margin-top:18px;min-height:46px}
         .restaurant-card:has(.restaurant-card-logo) .restaurant-schedule{margin-top:12px}
       }
       @media(max-width:380px){
         .restaurant-card:has(.restaurant-card-logo){min-height:242px}
-        .restaurant-card .restaurant-card-logo{left:18px;top:44px;width:56px!important;height:56px!important;max-width:56px!important}
+        .restaurant-card .restaurant-card-logo{left:18px;top:44px;width:56px!important;height:56px!important;max-width:56px!important;min-width:56px!important;background-size:336px 280px;background-position:calc(var(--logo-col) * -56px) calc(var(--logo-row) * -56px)}
         .restaurant-card:has(.restaurant-card-logo) .restaurant-name-button{width:calc(100% - 70px);margin-left:70px}
       }
     `;
     document.head.appendChild(style);
   }
+
   function init(){
     addStyles();
     addLogos();
@@ -135,6 +136,7 @@ window.RESTAURANT_LOGOS = {
       new MutationObserver(addLogos).observe(grid,{childList:true,subtree:true});
     }
   }
+
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded",init,{once:true});
   else init();
 })();
