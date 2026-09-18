@@ -110,10 +110,9 @@ window.RESTAURANT_LOGO_POSITIONS = {
       .restaurant-card.has-restaurant-watermark::before{
         content:"";
         position:absolute;
-        right:18px;
-        top:28px;
-        width:220px;
-        height:220px;
+        inset:0;
+        width:100%;
+        height:100%;
         border-radius:50%;
         background-image:var(--logo-url);
         background-size:cover;
