@@ -259,12 +259,15 @@ window.RESTAURANT_LOGO_POSITIONS = {
       .restaurant-card:has(.fresatto-card-logo){position:relative;min-height:255px}
       /* Marca de agua de Fresatto: el logo se desvanece en diagonal hacia la esquina inferior derecha. */
       .restaurant-card.has-restaurant-watermark:has(.fresatto-card-logo)::before{
-        opacity:.34;
-        filter:saturate(.95) blur(.35px);
+        opacity:.72 !important;
+        filter:none !important;
         background-position:center;
         background-size:cover;
-        -webkit-mask-image:linear-gradient(135deg,#000 0%,rgba(0,0,0,.88) 38%,rgba(0,0,0,.48) 68%,transparent 100%);
-        mask-image:linear-gradient(135deg,#000 0%,rgba(0,0,0,.88) 38%,rgba(0,0,0,.48) 68%,transparent 100%);
+        -webkit-mask-image:linear-gradient(135deg,transparent 0%,rgba(0,0,0,.12) 18%,rgba(0,0,0,.58) 48%,#000 78%);
+        mask-image:linear-gradient(135deg,transparent 0%,rgba(0,0,0,.12) 18%,rgba(0,0,0,.58) 48%,#000 78%);
+      }
+      .restaurant-card.has-restaurant-watermark:has(.fresatto-card-logo)::after{
+        background:linear-gradient(135deg,rgba(5,5,5,.64) 0%,rgba(5,5,5,.30) 48%,rgba(5,5,5,.12) 100%),linear-gradient(180deg,rgba(5,5,5,.22),rgba(5,5,5,.42)) !important;
       }
       .restaurant-card .fresatto-card-logo{
         position:absolute;left:25px;top:45px;
