@@ -257,7 +257,7 @@ window.RESTAURANT_LOGO_POSITIONS = {
     style.id = "fresattoLogoStyles";
     style.textContent = `
       .restaurant-card:has(.fresatto-card-logo){
-        position:relative;min-height:220px!important;max-height:240px;
+        position:relative;min-height:185px!important;height:185px!important;max-height:185px!important;padding:14px!important;
         border:1px solid rgba(255,190,45,.46)!important;
         border-radius:20px!important;
         background:radial-gradient(ellipse at 78% 20%,rgba(255,179,0,.12),transparent 38%),linear-gradient(135deg,#050505 0%,#11100b 58%,#050505 100%)!important;
@@ -265,7 +265,7 @@ window.RESTAURANT_LOGO_POSITIONS = {
       }
       /* Marca de agua grande, legible y desvanecida en diagonal. */
       .restaurant-card.has-restaurant-watermark:has(.fresatto-card-logo)::before{
-        opacity:.88!important;filter:none!important;background-position:72% 42%;background-size:78% auto;background-repeat:no-repeat;
+        opacity:.88!important;filter:none!important;background-position:74% 42%;background-size:68% auto;background-repeat:no-repeat;
         -webkit-mask-image:linear-gradient(135deg,transparent 0%,rgba(0,0,0,.16) 18%,rgba(0,0,0,.58) 48%,#000 82%);
         mask-image:linear-gradient(135deg,transparent 0%,rgba(0,0,0,.16) 18%,rgba(0,0,0,.58) 48%,#000 82%);
       }
@@ -276,25 +276,28 @@ window.RESTAURANT_LOGO_POSITIONS = {
           linear-gradient(135deg,rgba(5,5,5,.72) 0%,rgba(5,5,5,.38) 50%,rgba(5,5,5,.14) 100%)!important;
       }
       .restaurant-card .fresatto-card-logo{
-        position:absolute;left:25px;top:45px;
-        width:70px!important;height:70px!important;max-width:70px!important;
+        position:absolute;left:18px;top:24px;
+        width:52px!important;height:52px!important;max-width:52px!important;
         object-fit:contain!important;object-position:center;border-radius:50%;margin:0;
         border:1px solid rgba(255,179,0,.55);
         box-shadow:0 8px 20px rgba(0,0,0,.32);
         background:#050505;opacity:1!important;visibility:visible!important;z-index:3;
       }
       .restaurant-card:has(.fresatto-card-logo) .restaurant-name-button{
-        width:calc(100% - 88px);margin-left:88px;margin-top:18px;min-height:52px;
+        width:calc(100% - 66px);margin-left:66px;margin-top:2px;min-height:40px;
       }
-      .restaurant-card:has(.fresatto-card-logo) .restaurant-schedule{position:relative;z-index:2;margin-top:14px}
+      .restaurant-card:has(.fresatto-card-logo) .restaurant-schedule{position:relative;z-index:2;margin:7px 0 0!important;padding:7px 9px!important;border-color:rgba(255,205,95,.22)!important;border-radius:11px!important;background:rgba(0,0,0,.56)!important;backdrop-filter:blur(8px)}
+      .restaurant-card:has(.fresatto-card-logo) .restaurant-schedule-title{margin-bottom:6px;font-size:.62rem}
+      .restaurant-card:has(.fresatto-card-logo) .schedule-day{width:22px;height:22px;font-size:.58rem}
+      .restaurant-card:has(.fresatto-card-logo) .restaurant-schedule-closed{margin-top:5px;font-size:.62rem}
       @media(max-width:600px){
-        .restaurant-card:has(.fresatto-card-logo){min-height:248px}
-        .restaurant-card .fresatto-card-logo{left:20px;top:45px;width:62px!important;height:62px!important;max-width:62px!important}
-        .restaurant-card:has(.fresatto-card-logo) .restaurant-name-button{width:calc(100% - 78px);margin-left:78px;margin-top:18px;min-height:46px}
+        .restaurant-card:has(.fresatto-card-logo){min-height:190px!important;height:auto!important;max-height:none!important;padding:12px!important}
+        .restaurant-card .fresatto-card-logo{left:14px;top:22px;width:46px!important;height:46px!important;max-width:46px!important}
+        .restaurant-card:has(.fresatto-card-logo) .restaurant-name-button{width:calc(100% - 58px);margin-left:58px;margin-top:0;min-height:38px}
         .restaurant-card:has(.fresatto-card-logo) .restaurant-schedule{margin-top:12px}
       }
       @media(max-width:380px){
-        .restaurant-card:has(.fresatto-card-logo){min-height:242px}
+        .restaurant-card:has(.fresatto-card-logo){min-height:185px!important}
         .restaurant-card .fresatto-card-logo{left:18px;top:44px;width:56px!important;height:56px!important;max-width:56px!important}
         .restaurant-card:has(.fresatto-card-logo) .restaurant-name-button{width:calc(100% - 70px);margin-left:70px}
       }
