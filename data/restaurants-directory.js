@@ -265,15 +265,12 @@ window.RESTAURANT_LOGO_POSITIONS = {
       }
       /* Marca de agua grande, legible y desvanecida en diagonal. */
       .restaurant-card.has-restaurant-watermark:has(.fresatto-card-logo)::before{
-        opacity:.88!important;filter:none!important;background-position:74% 42%;background-size:68% auto;background-repeat:no-repeat;
-        -webkit-mask-image:linear-gradient(135deg,transparent 0%,rgba(0,0,0,.16) 18%,rgba(0,0,0,.58) 48%,#000 82%);
-        mask-image:linear-gradient(135deg,transparent 0%,rgba(0,0,0,.16) 18%,rgba(0,0,0,.58) 48%,#000 82%);
+        opacity:.94!important;filter:none!important;background-position:72% 46%;background-size:72% auto;background-repeat:no-repeat;
+        -webkit-mask-image:linear-gradient(135deg,transparent 0%,rgba(0,0,0,.08) 16%,rgba(0,0,0,.52) 43%,#000 78%);
+        mask-image:linear-gradient(135deg,transparent 0%,rgba(0,0,0,.08) 16%,rgba(0,0,0,.52) 43%,#000 78%);
       }
       .restaurant-card.has-restaurant-watermark:has(.fresatto-card-logo)::after{
-        background:
-          radial-gradient(circle at 73% 43%,transparent 0 29%,rgba(255,190,45,.22) 29.4%,rgba(255,190,45,.04) 30.5%,transparent 31.5%),
-          radial-gradient(circle at 73% 43%,transparent 0 36%,rgba(235,235,235,.22) 36.4%,rgba(235,235,235,.04) 37.5%,transparent 38.5%),
-          linear-gradient(135deg,rgba(5,5,5,.72) 0%,rgba(5,5,5,.38) 50%,rgba(5,5,5,.14) 100%)!important;
+        background:linear-gradient(135deg,rgba(5,5,5,.76) 0%,rgba(5,5,5,.42) 48%,rgba(5,5,5,.20) 100%)!important;
       }
       .restaurant-card .fresatto-card-logo{
         position:absolute;left:18px;top:24px;
