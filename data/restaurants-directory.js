@@ -278,6 +278,14 @@ window.RESTAURANT_LOGO_POSITIONS = {
         width:calc(100% - 66px);margin-left:66px;margin-top:2px;min-height:40px;
         color:#ffc21a!important;text-shadow:0 0 16px rgba(255,179,0,.18);
       }
+      /* Subir un poco el número y el estado sin salir del borde superior. */
+      .restaurant-card:has(.fresatto-card-logo) > div:first-child{
+        position:relative;top:-5px;z-index:4;
+      }
+      .restaurant-card:has(.fresatto-card-logo) .restaurant-number,
+      .restaurant-card:has(.fresatto-card-logo) .closed-badge{
+        position:relative;z-index:4;
+      }
       .restaurant-card:has(.fresatto-card-logo) .restaurant-schedule{
         position:relative;z-index:2;margin:7px 0 0!important;padding:7px 9px!important;
         border-color:rgba(255,205,95,.22)!important;border-radius:11px!important;
