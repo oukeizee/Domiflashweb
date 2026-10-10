@@ -256,18 +256,24 @@ window.RESTAURANT_LOGO_POSITIONS = {
     const style = document.createElement("style");
     style.id = "fresattoLogoStyles";
     style.textContent = `
-      .restaurant-card:has(.fresatto-card-logo){position:relative;min-height:255px}
-      /* Marca de agua de Fresatto: el logo se desvanece en diagonal hacia la esquina inferior derecha. */
+      .restaurant-card:has(.fresatto-card-logo){
+        position:relative;min-height:220px!important;max-height:240px;
+        border:1px solid rgba(255,190,45,.46)!important;
+        border-radius:20px!important;
+        background:radial-gradient(ellipse at 78% 20%,rgba(255,179,0,.12),transparent 38%),linear-gradient(135deg,#050505 0%,#11100b 58%,#050505 100%)!important;
+        box-shadow:0 12px 32px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,220,130,.08);
+      }
+      /* Marca de agua grande, legible y desvanecida en diagonal. */
       .restaurant-card.has-restaurant-watermark:has(.fresatto-card-logo)::before{
-        opacity:.72 !important;
-        filter:none !important;
-        background-position:center;
-        background-size:cover;
-        -webkit-mask-image:linear-gradient(135deg,transparent 0%,rgba(0,0,0,.12) 18%,rgba(0,0,0,.58) 48%,#000 78%);
-        mask-image:linear-gradient(135deg,transparent 0%,rgba(0,0,0,.12) 18%,rgba(0,0,0,.58) 48%,#000 78%);
+        opacity:.88!important;filter:none!important;background-position:72% 42%;background-size:78% auto;background-repeat:no-repeat;
+        -webkit-mask-image:linear-gradient(135deg,transparent 0%,rgba(0,0,0,.16) 18%,rgba(0,0,0,.58) 48%,#000 82%);
+        mask-image:linear-gradient(135deg,transparent 0%,rgba(0,0,0,.16) 18%,rgba(0,0,0,.58) 48%,#000 82%);
       }
       .restaurant-card.has-restaurant-watermark:has(.fresatto-card-logo)::after{
-        background:linear-gradient(135deg,rgba(5,5,5,.64) 0%,rgba(5,5,5,.30) 48%,rgba(5,5,5,.12) 100%),linear-gradient(180deg,rgba(5,5,5,.22),rgba(5,5,5,.42)) !important;
+        background:
+          radial-gradient(circle at 73% 43%,transparent 0 29%,rgba(255,190,45,.22) 29.4%,rgba(255,190,45,.04) 30.5%,transparent 31.5%),
+          radial-gradient(circle at 73% 43%,transparent 0 36%,rgba(235,235,235,.22) 36.4%,rgba(235,235,235,.04) 37.5%,transparent 38.5%),
+          linear-gradient(135deg,rgba(5,5,5,.72) 0%,rgba(5,5,5,.38) 50%,rgba(5,5,5,.14) 100%)!important;
       }
       .restaurant-card .fresatto-card-logo{
         position:absolute;left:25px;top:45px;
