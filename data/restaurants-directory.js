@@ -81,25 +81,54 @@ window.RESTAURANT_LOGO_POSITIONS = {
     return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
   };
 
+  const RESTAURANT_LOGO_FILES = {
+    "1":"Junior Pizza.jpg",
+    "2":"Donipanda Baeery.jpg",
+    "4":"Chorizos donde Juancho.jpg",
+    "5":"La Brasa China de la 40.jpg",
+    "6":"Pantera.jpg",
+    "7":"Panaderia Duble.jpg",
+    "8":"Chica Fresa.jpg",
+    "9":"Mylú.jpg",
+    "10":"Mr. Chiken.jpg",
+    "11":"Fruty Cream.jpg",
+    "12":"Aramex.jpg",
+    "13":"Pizzas Rapidas Country´s.jpg",
+    "14":"Chamos Cholados.jpg",
+    "15":"La Bonga.jpg",
+    "16":"Espuela.jpg",
+    "17":"Chalo.jpg",
+    "18":"Burger City.jpg",
+    "19":"Barto.jpg",
+    "20":"La Magola.jpg",
+    "21":"Cherramy Heladeria.jpg",
+    "22":"Sabor al Barril.jpg",
+    "23":"Asadero de Pollo alto la 16.jpg",
+    "24":"El Camarón.jpg",
+    "25":"Don Grizzly Hamburguesas.jpg",
+    "26":"La Casa de la Hamburguesa.jpg",
+    "27":"Mapple.jpg"
+  };
+
   function addLogos(){
     document.querySelectorAll("#restaurantGrid .restaurant-card").forEach(card => {
       const id = String(card.dataset?.restaurantId || "").trim();
       if(id === "3" || card.querySelector(".restaurant-card-logo")) return;
 
-      const position = window.RESTAURANT_LOGO_POSITIONS?.[id];
+      const filename = RESTAURANT_LOGO_FILES[id];
       const nameButton = card.querySelector(".restaurant-name-button");
-      if(!position || !nameButton) return;
+      if(!filename || !nameButton) return;
 
+      const logoUrl = "assets/images/" + filename;
       const logo = document.createElement("span");
       logo.className = "restaurant-card-logo";
       logo.setAttribute("role","img");
-      logo.setAttribute("aria-label","Logo del restaurante");
-      logo.style.backgroundImage = `url("${SPRITE}")`;
-      logo.style.backgroundSize = "350px 420px";
-      logo.style.backgroundPosition = `-${position[0] * 70}px -${position[1] * 70}px`;
+      logo.setAttribute("aria-label","Logo de " + (nameButton.querySelector("span")?.textContent || "restaurante"));
+      logo.style.backgroundImage = `url("${logoUrl}")`;
+      logo.style.backgroundSize = "contain";
+      logo.style.backgroundPosition = "center";
       logo.style.backgroundRepeat = "no-repeat";
-      card.style.setProperty("--logo-x", String(position[0] * 140));
-      card.style.setProperty("--logo-y", String(position[1] * 140));
+      card.style.setProperty("--logo-url", `url("${logoUrl}")`);
       card.classList.add("has-restaurant-watermark");
       card.insertBefore(logo, nameButton);
     });
