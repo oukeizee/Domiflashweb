@@ -286,9 +286,14 @@ window.RESTAURANT_LOGO_POSITIONS = {
     style.textContent = `
       .restaurant-card:has(.fresatto-card-logo){
         position:relative;min-height:185px!important;height:185px!important;max-height:185px!important;padding:14px!important;
-        border:1px solid rgba(255,190,45,.46)!important;border-radius:20px!important;
+        border:1px solid rgba(255,255,255,.10)!important;border-radius:20px!important;
         background:linear-gradient(135deg,#050505 0%,#11100b 58%,#050505 100%)!important;
-        box-shadow:0 12px 32px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,220,130,.08);
+        box-shadow:0 12px 32px rgba(0,0,0,.38);
+      }
+      .restaurant-card:has(.fresatto-card-logo):hover,
+      .restaurant-card:has(.fresatto-card-logo):focus-within{
+        border-color:rgba(255,179,0,.5)!important;
+        box-shadow:0 12px 32px rgba(0,0,0,.38),0 0 0 1px rgba(255,179,0,.08)!important;
       }
       /* Se elimina únicamente el logo grande del fondo; se conserva el sello circular. */
       .restaurant-card.has-restaurant-watermark:has(.fresatto-card-logo)::before{
