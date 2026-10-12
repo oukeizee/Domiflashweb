@@ -267,3 +267,14 @@
     width:calc(100% - 52px)!important;margin-left:52px!important;
   }
 }
+
+/* Quitar la imagen de fondo de todas las tarjetas; conservar los logos circulares. */
+#restaurantGrid > .restaurant-card:not(:has(.fresatto-card-logo)).has-restaurant-watermark::before{
+  content:none!important;
+  display:none!important;
+  background-image:none!important;
+  opacity:0!important;
+}
+#restaurantGrid > .restaurant-card:not(:has(.fresatto-card-logo)).has-restaurant-watermark::after{
+  background:linear-gradient(135deg,rgba(5,5,5,.08),rgba(5,5,5,.18))!important;
+}
