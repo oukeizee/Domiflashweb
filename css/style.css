@@ -202,11 +202,21 @@
 }
 #restaurantGrid > .restaurant-card .restaurant-card-logo,
 #restaurantGrid > .restaurant-card .fresatto-card-logo{
+  box-sizing:border-box!important;
+  display:block!important;
+  position:absolute!important;
   left:18px!important;top:24px!important;
   width:52px!important;height:52px!important;
-  min-width:52px!important;max-width:52px!important;
-  object-fit:contain!important;background-size:contain!important;
-  background-position:center!important;background-repeat:no-repeat!important;
+  min-width:52px!important;min-height:52px!important;
+  max-width:52px!important;max-height:52px!important;
+  aspect-ratio:1 / 1!important;
+  flex:0 0 52px!important;
+  padding:3px!important;
+  object-fit:contain!important;object-position:center!important;
+  background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important;
+  border-radius:50%!important;
+  overflow:hidden!important;
+  clip-path:circle(50% at 50% 50%)!important;
 }
 #restaurantGrid > .restaurant-card .restaurant-name-button{
   width:calc(100% - 66px)!important;
